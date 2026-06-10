@@ -1,0 +1,859 @@
+technique_id,technique_name,tactic_id,tactic_name
+T1001,data obfuscation,TA0011,command and control
+T1001.001,junk data,TA0011,command and control
+T1001.002,steganography,TA0011,command and control
+T1001.003,protocol or service impersonation,TA0011,command and control
+T1002,data compressed,TA0010,exfiltration
+T1003,os credential dumping,TA0006,credential access
+T1003.001,lsass memory,TA0006,credential access
+T1003.002,security account manager,TA0006,credential access
+T1003.003,ntds,TA0006,credential access
+T1003.004,lsa secrets,TA0006,credential access
+T1003.005,cached domain credentials,TA0006,credential access
+T1003.006,dcsync,TA0006,credential access
+T1003.007,proc filesystem,TA0006,credential access
+T1003.008,/etc/passwd and /etc/shadow,TA0006,credential access
+T1004,winlogon helper dll,TA0003,persistence
+T1005,data from local system,TA0009,collection
+T1006,direct volume access,TA0005,stealth
+T1007,system service discovery,TA0007,discovery
+T1008,fallback channels,TA0011,command and control
+T1009,binary padding,TA0005,stealth
+T1010,application window discovery,TA0007,discovery
+T1011,exfiltration over other network medium,TA0010,exfiltration
+T1011.001,exfiltration over bluetooth,TA0010,exfiltration
+T1012,query registry,TA0007,discovery
+T1013,port monitors,TA0003|TA0004,persistence|privilege escalation
+T1014,rootkit,TA0005,stealth
+T1015,accessibility features,TA0003|TA0004,persistence|privilege escalation
+T1016,system network configuration discovery,TA0007,discovery
+T1016.001,internet connection discovery,TA0007,discovery
+T1016.002,wi-fi discovery,TA0007,discovery
+T1017,application deployment software,TA0008,lateral movement
+T1018,remote system discovery,TA0007,discovery
+T1019,system firmware,TA0003,persistence
+T1020,automated exfiltration,TA0010,exfiltration
+T1020.001,traffic duplication,TA0010,exfiltration
+T1021,remote services,TA0008,lateral movement
+T1021.001,remote desktop protocol,TA0008,lateral movement
+T1021.002,smb/windows admin shares,TA0008,lateral movement
+T1021.003,distributed component object model,TA0008,lateral movement
+T1021.004,ssh,TA0008,lateral movement
+T1021.005,vnc,TA0008,lateral movement
+T1021.006,windows remote management,TA0008,lateral movement
+T1021.007,cloud services,TA0008,lateral movement
+T1021.008,direct cloud vm connections,TA0008,lateral movement
+T1022,data encrypted,TA0010,exfiltration
+T1023,shortcut modification,TA0003,persistence
+T1024,custom cryptographic protocol,TA0011,command and control
+T1025,data from removable media,TA0009,collection
+T1026,multiband communication,TA0011,command and control
+T1027,obfuscated files or information,TA0005,stealth
+T1027.001,binary padding,TA0005,stealth
+T1027.002,software packing,TA0005,stealth
+T1027.003,steganography,TA0005,stealth
+T1027.004,compile after delivery,TA0005,stealth
+T1027.005,indicator removal from tools,TA0005,stealth
+T1027.006,html smuggling,TA0005,stealth
+T1027.007,dynamic api resolution,TA0005,stealth
+T1027.008,stripped payloads,TA0005,stealth
+T1027.009,embedded payloads,TA0005,stealth
+T1027.010,command obfuscation,TA0005,stealth
+T1027.011,fileless storage,TA0005,stealth
+T1027.012,lnk icon smuggling,TA0005,stealth
+T1027.013,encrypted/encoded file,TA0005,stealth
+T1027.014,polymorphic code,TA0005,stealth
+T1027.015,compression,TA0005,stealth
+T1027.016,junk code insertion,TA0005,stealth
+T1027.017,svg smuggling,TA0005,stealth
+T1027.018,invisible unicode,TA0005,stealth
+T1028,windows remote management,TA0002|TA0008,execution|lateral movement
+T1029,scheduled transfer,TA0010,exfiltration
+T1030,data transfer size limits,TA0010,exfiltration
+T1031,modify existing service,TA0003,persistence
+T1032,standard cryptographic protocol,TA0011,command and control
+T1033,system owner/user discovery,TA0007,discovery
+T1034,path interception,TA0003|TA0004,persistence|privilege escalation
+T1035,service execution,TA0002,execution
+T1036,masquerading,TA0005,stealth
+T1036.001,invalid code signature,TA0005,stealth
+T1036.002,right-to-left override,TA0005,stealth
+T1036.003,rename legitimate utilities,TA0005,stealth
+T1036.004,masquerade task or service,TA0005,stealth
+T1036.005,match legitimate resource name or location,TA0005,stealth
+T1036.006,space after filename,TA0005,stealth
+T1036.007,double file extension,TA0005,stealth
+T1036.008,masquerade file type,TA0005,stealth
+T1036.009,break process trees,TA0005,stealth
+T1036.010,masquerade account name,TA0005,stealth
+T1036.011,overwrite process arguments,TA0005,stealth
+T1036.012,browser fingerprint,TA0005,stealth
+T1037,boot or logon initialization scripts,TA0003|TA0004,persistence|privilege escalation
+T1037.001,logon script (windows),TA0003|TA0004,persistence|privilege escalation
+T1037.002,login hook,TA0003|TA0004,persistence|privilege escalation
+T1037.003,network logon script,TA0003|TA0004,persistence|privilege escalation
+T1037.004,rc scripts,TA0003|TA0004,persistence|privilege escalation
+T1037.005,startup items,TA0003|TA0004,persistence|privilege escalation
+T1038,dll search order hijacking,TA0003|TA0004|TA0005,persistence|privilege escalation|stealth
+T1039,data from network shared drive,TA0009,collection
+T1040,network sniffing,TA0006|TA0007,credential access|discovery
+T1041,exfiltration over c2 channel,TA0010,exfiltration
+T1042,change default file association,TA0003,persistence
+T1043,commonly used port,TA0011,command and control
+T1044,file system permissions weakness,TA0003|TA0004,persistence|privilege escalation
+T1045,software packing,TA0005,stealth
+T1046,network service discovery,TA0007,discovery
+T1047,windows management instrumentation,TA0002,execution
+T1048,exfiltration over alternative protocol,TA0010,exfiltration
+T1048.001,exfiltration over symmetric encrypted non-c2 protocol,TA0010,exfiltration
+T1048.002,exfiltration over asymmetric encrypted non-c2 protocol,TA0010,exfiltration
+T1048.003,exfiltration over unencrypted non-c2 protocol,TA0010,exfiltration
+T1049,system network connections discovery,TA0007,discovery
+T1050,new service,TA0003|TA0004,persistence|privilege escalation
+T1051,shared webroot,TA0008,lateral movement
+T1052,exfiltration over physical medium,TA0010,exfiltration
+T1052.001,exfiltration over usb,TA0010,exfiltration
+T1053,scheduled task/job,TA0002|TA0003|TA0004,execution|persistence|privilege escalation
+T1053.001,at (linux),TA0002|TA0003|TA0004,execution|persistence|privilege escalation
+T1053.002,at,TA0002|TA0003|TA0004,execution|persistence|privilege escalation
+T1053.003,cron,TA0002|TA0003|TA0004,execution|persistence|privilege escalation
+T1053.004,launchd,TA0002|TA0003|TA0004,execution|persistence|privilege escalation
+T1053.005,scheduled task,TA0002|TA0003|TA0004,execution|persistence|privilege escalation
+T1053.006,systemd timers,TA0002|TA0003|TA0004,execution|persistence|privilege escalation
+T1053.007,container orchestration job,TA0002|TA0003|TA0004,execution|persistence|privilege escalation
+T1054,indicator blocking,TA0005,stealth
+T1055,process injection,TA0005|TA0004,stealth|privilege escalation
+T1055.001,dynamic-link library injection,TA0005|TA0004,stealth|privilege escalation
+T1055.002,portable executable injection,TA0005|TA0004,stealth|privilege escalation
+T1055.003,thread execution hijacking,TA0005|TA0004,stealth|privilege escalation
+T1055.004,asynchronous procedure call,TA0005|TA0004,stealth|privilege escalation
+T1055.005,thread local storage,TA0005|TA0004,stealth|privilege escalation
+T1055.008,ptrace system calls,TA0005|TA0004,stealth|privilege escalation
+T1055.009,proc memory,TA0005|TA0004,stealth|privilege escalation
+T1055.011,extra window memory injection,TA0005|TA0004,stealth|privilege escalation
+T1055.012,process hollowing,TA0005|TA0004,stealth|privilege escalation
+T1055.013,process doppelgänging,TA0005|TA0004,stealth|privilege escalation
+T1055.014,vdso hijacking,TA0005|TA0004,stealth|privilege escalation
+T1055.015,listplanting,TA0005|TA0004,stealth|privilege escalation
+T1056,input capture,TA0009|TA0006,collection|credential access
+T1056.001,keylogging,TA0009|TA0006,collection|credential access
+T1056.002,gui input capture,TA0009|TA0006,collection|credential access
+T1056.003,web portal capture,TA0009|TA0006,collection|credential access
+T1056.004,credential api hooking,TA0009|TA0006,collection|credential access
+T1057,process discovery,TA0007,discovery
+T1058,service registry permissions weakness,TA0003|TA0004,persistence|privilege escalation
+T1059,command and scripting interpreter,TA0002,execution
+T1059.001,powershell,TA0002,execution
+T1059.002,applescript,TA0002,execution
+T1059.003,windows command shell,TA0002,execution
+T1059.004,unix shell,TA0002,execution
+T1059.005,visual basic,TA0002,execution
+T1059.006,python,TA0002,execution
+T1059.007,javascript,TA0002,execution
+T1059.008,network device cli,TA0002,execution
+T1059.009,cloud api,TA0002,execution
+T1059.010,autohotkey & autoit,TA0002,execution
+T1059.011,lua,TA0002,execution
+T1059.012,hypervisor cli,TA0002,execution
+T1059.013,container cli/api,TA0002,execution
+T1060,registry run keys / startup folder,TA0003,persistence
+T1061,graphical user interface,TA0002,execution
+T1062,hypervisor,TA0003,persistence
+T1063,security software discovery,TA0007,discovery
+T1064,scripting,TA0005|TA0002,stealth|execution
+T1065,uncommonly used port,TA0011,command and control
+T1066,indicator removal from tools,TA0005,stealth
+T1067,bootkit,TA0003,persistence
+T1068,exploitation for privilege escalation,TA0004,privilege escalation
+T1069,permission groups discovery,TA0007,discovery
+T1069.001,local groups,TA0007,discovery
+T1069.002,domain groups,TA0007,discovery
+T1069.003,cloud groups,TA0007,discovery
+T1070,indicator removal,TA0005,stealth
+T1070.001,clear windows event logs,TA0005,stealth
+T1070.002,clear linux or mac system logs,TA0005,stealth
+T1070.003,clear command history,TA0005,stealth
+T1070.004,file deletion,TA0005,stealth
+T1070.005,network share connection removal,TA0005,stealth
+T1070.006,timestomp,TA0005,stealth
+T1070.007,clear network connection history and configurations,TA0005,stealth
+T1070.008,clear mailbox data,TA0005,stealth
+T1070.009,clear persistence,TA0005,stealth
+T1070.010,relocate malware,TA0005,stealth
+T1071,application layer protocol,TA0011,command and control
+T1071.001,web protocols,TA0011,command and control
+T1071.002,file transfer protocols,TA0011,command and control
+T1071.003,mail protocols,TA0011,command and control
+T1071.004,dns,TA0011,command and control
+T1071.005,publish/subscribe protocols,TA0011,command and control
+T1072,software deployment tools,TA0002|TA0008,execution|lateral movement
+T1073,dll side-loading,TA0005,stealth
+T1074,data staged,TA0009,collection
+T1074.001,local data staging,TA0009,collection
+T1074.002,remote data staging,TA0009,collection
+T1075,pass the hash,TA0008,lateral movement
+T1076,remote desktop protocol,TA0008,lateral movement
+T1077,windows admin shares,TA0008,lateral movement
+T1078,valid accounts,TA0005|TA0003|TA0004|TA0001,stealth|persistence|privilege escalation|initial access
+T1078.001,default accounts,TA0005|TA0003|TA0004|TA0001,stealth|persistence|privilege escalation|initial access
+T1078.002,domain accounts,TA0005|TA0003|TA0004|TA0001,stealth|persistence|privilege escalation|initial access
+T1078.003,local accounts,TA0005|TA0003|TA0004|TA0001,stealth|persistence|privilege escalation|initial access
+T1078.004,cloud accounts,TA0005|TA0003|TA0004|TA0001,stealth|persistence|privilege escalation|initial access
+T1079,multilayer encryption,TA0011,command and control
+T1080,taint shared content,TA0008,lateral movement
+T1081,credentials in files,TA0006,credential access
+T1082,system information discovery,TA0007,discovery
+T1083,file and directory discovery,TA0007,discovery
+T1084,windows management instrumentation event subscription,TA0003,persistence
+T1085,rundll32,TA0005|TA0002,stealth|execution
+T1086,powershell,TA0002,execution
+T1087,account discovery,TA0007,discovery
+T1087.001,local account,TA0007,discovery
+T1087.002,domain account,TA0007,discovery
+T1087.003,email account,TA0007,discovery
+T1087.004,cloud account,TA0007,discovery
+T1088,bypass user account control,TA0005|TA0004,stealth|privilege escalation
+T1089,disabling security tools,TA0005,stealth
+T1090,proxy,TA0011,command and control
+T1090.001,internal proxy,TA0011,command and control
+T1090.002,external proxy,TA0011,command and control
+T1090.003,multi-hop proxy,TA0011,command and control
+T1090.004,domain fronting,TA0011,command and control
+T1091,replication through removable media,TA0008|TA0001,lateral movement|initial access
+T1092,communication through removable media,TA0011,command and control
+T1093,process hollowing,TA0005,stealth
+T1094,custom command and control protocol,TA0011,command and control
+T1095,non-application layer protocol,TA0011,command and control
+T1096,ntfs file attributes,TA0005,stealth
+T1097,pass the ticket,TA0008,lateral movement
+T1098,account manipulation,TA0003|TA0004,persistence|privilege escalation
+T1098.001,additional cloud credentials,TA0003|TA0004,persistence|privilege escalation
+T1098.002,additional email delegate permissions,TA0003|TA0004,persistence|privilege escalation
+T1098.003,additional cloud roles,TA0003|TA0004,persistence|privilege escalation
+T1098.004,ssh authorized keys,TA0003|TA0004,persistence|privilege escalation
+T1098.005,device registration,TA0003|TA0004,persistence|privilege escalation
+T1098.006,additional container cluster roles,TA0003|TA0004,persistence|privilege escalation
+T1098.007,additional local or domain groups,TA0003|TA0004,persistence|privilege escalation
+T1099,timestomp,TA0005,stealth
+T1100,web shell,TA0003|TA0004,persistence|privilege escalation
+T1101,security support provider,TA0003,persistence
+T1102,web service,TA0011,command and control
+T1102.001,dead drop resolver,TA0011,command and control
+T1102.002,bidirectional communication,TA0011,command and control
+T1102.003,one-way communication,TA0011,command and control
+T1103,appinit dlls,TA0003|TA0004,persistence|privilege escalation
+T1104,multi-stage channels,TA0011,command and control
+T1105,ingress tool transfer,TA0011,command and control
+T1106,native api,TA0002,execution
+T1107,file deletion,TA0005,stealth
+T1108,redundant access,TA0005|TA0003,stealth|persistence
+T1109,component firmware,TA0005|TA0003,stealth|persistence
+T1110,brute force,TA0006,credential access
+T1110.001,password guessing,TA0006,credential access
+T1110.002,password cracking,TA0006,credential access
+T1110.003,password spraying,TA0006,credential access
+T1110.004,credential stuffing,TA0006,credential access
+T1111,multi-factor authentication interception,TA0006,credential access
+T1112,modify registry,TA0112|TA0003,defense impairment|persistence
+T1113,screen capture,TA0009,collection
+T1114,email collection,TA0009,collection
+T1114.001,local email collection,TA0009,collection
+T1114.002,remote email collection,TA0009,collection
+T1114.003,email forwarding rule,TA0009,collection
+T1115,clipboard data,TA0009,collection
+T1116,code signing,TA0005,stealth
+T1117,regsvr32,TA0005|TA0002,stealth|execution
+T1118,installutil,TA0005|TA0002,stealth|execution
+T1119,automated collection,TA0009,collection
+T1120,peripheral device discovery,TA0007,discovery
+T1121,regsvcs/regasm,TA0005|TA0002,stealth|execution
+T1122,component object model hijacking,TA0005|TA0003,stealth|persistence
+T1123,audio capture,TA0009,collection
+T1124,system time discovery,TA0007,discovery
+T1125,video capture,TA0009,collection
+T1126,network share connection removal,TA0005,stealth
+T1127,trusted developer utilities proxy execution,TA0005|TA0002,stealth|execution
+T1127.001,msbuild,TA0005|TA0002,stealth|execution
+T1127.002,clickonce,TA0005|TA0002,stealth|execution
+T1127.003,jamplus,TA0005|TA0002,stealth|execution
+T1128,netsh helper dll,TA0003,persistence
+T1129,shared modules,TA0002,execution
+T1130,install root certificate,TA0005,stealth
+T1131,authentication package,TA0003,persistence
+T1132,data encoding,TA0011,command and control
+T1132.001,standard encoding,TA0011,command and control
+T1132.002,non-standard encoding,TA0011,command and control
+T1133,external remote services,TA0003|TA0001,persistence|initial access
+T1134,access token manipulation,TA0005|TA0004,stealth|privilege escalation
+T1134.001,token impersonation/theft,TA0005|TA0004,stealth|privilege escalation
+T1134.002,create process with token,TA0005|TA0004,stealth|privilege escalation
+T1134.003,make and impersonate token,TA0005|TA0004,stealth|privilege escalation
+T1134.004,parent pid spoofing,TA0005|TA0004,stealth|privilege escalation
+T1134.005,sid-history injection,TA0005|TA0004,stealth|privilege escalation
+T1135,network share discovery,TA0007,discovery
+T1136,create account,TA0003,persistence
+T1136.001,local account,TA0003,persistence
+T1136.002,domain account,TA0003,persistence
+T1136.003,cloud account,TA0003,persistence
+T1137,office application startup,TA0003,persistence
+T1137.001,office template macros,TA0003,persistence
+T1137.002,office test,TA0003,persistence
+T1137.003,outlook forms,TA0003,persistence
+T1137.004,outlook home page,TA0003,persistence
+T1137.005,outlook rules,TA0003,persistence
+T1137.006,add-ins,TA0003,persistence
+T1138,application shimming,TA0003|TA0004,persistence|privilege escalation
+T1139,bash history,TA0006,credential access
+T1140,deobfuscate/decode files or information,TA0005,stealth
+T1141,input prompt,TA0006,credential access
+T1142,keychain,TA0006,credential access
+T1143,hidden window,TA0005,stealth
+T1144,gatekeeper bypass,TA0005,stealth
+T1145,private keys,TA0006,credential access
+T1146,clear command history,TA0005,stealth
+T1147,hidden users,TA0005,stealth
+T1148,histcontrol,TA0005,stealth
+T1149,lc_main hijacking,TA0005,stealth
+T1150,plist modification,TA0005|TA0003|TA0004,stealth|persistence|privilege escalation
+T1151,space after filename,TA0005|TA0002,stealth|execution
+T1152,launchctl,TA0005|TA0002|TA0003,stealth|execution|persistence
+T1153,source,TA0002,execution
+T1154,trap,TA0002|TA0003,execution|persistence
+T1155,applescript,TA0002,execution
+T1156,malicious shell modification,TA0003,persistence
+T1157,dylib hijacking,TA0003|TA0004,persistence|privilege escalation
+T1158,hidden files and directories,TA0005|TA0003,stealth|persistence
+T1159,launch agent,TA0003,persistence
+T1160,launch daemon,TA0003|TA0004,persistence|privilege escalation
+T1161,lc_load_dylib addition,TA0003,persistence
+T1162,login item,TA0003,persistence
+T1163,rc.common,TA0003,persistence
+T1164,re-opened applications,TA0003,persistence
+T1165,startup items,TA0003|TA0004,persistence|privilege escalation
+T1166,setuid and setgid,TA0004|TA0003,privilege escalation|persistence
+T1167,securityd memory,TA0006,credential access
+T1168,local job scheduling,TA0003|TA0002,persistence|execution
+T1169,sudo,TA0004,privilege escalation
+T1170,mshta,TA0005|TA0002,stealth|execution
+T1171,llmnr/nbt-ns poisoning and relay,TA0006,credential access
+T1172,domain fronting,TA0011,command and control
+T1173,dynamic data exchange,TA0002,execution
+T1174,password filter dll,TA0006,credential access
+T1175,component object model and distributed com,TA0008|TA0002,lateral movement|execution
+T1176,software extensions,TA0003,persistence
+T1176.001,browser extensions,TA0003,persistence
+T1176.002,ide extensions,TA0003,persistence
+T1177,lsass driver,TA0002|TA0003,execution|persistence
+T1178,sid-history injection,TA0004,privilege escalation
+T1179,hooking,TA0003|TA0004|TA0006,persistence|privilege escalation|credential access
+T1180,screensaver,TA0003,persistence
+T1181,extra window memory injection,TA0005|TA0004,stealth|privilege escalation
+T1182,appcert dlls,TA0003|TA0004,persistence|privilege escalation
+T1183,image file execution options injection,TA0004|TA0003|TA0005,privilege escalation|persistence|stealth
+T1184,ssh hijacking,TA0008,lateral movement
+T1185,browser session hijacking,TA0009,collection
+T1186,process doppelgänging,TA0005,stealth
+T1187,forced authentication,TA0006,credential access
+T1188,multi-hop proxy,TA0011,command and control
+T1189,drive-by compromise,TA0001,initial access
+T1190,exploit public-facing application,TA0001,initial access
+T1191,cmstp,TA0005|TA0002,stealth|execution
+T1192,spearphishing link,TA0001,initial access
+T1193,spearphishing attachment,TA0001,initial access
+T1194,spearphishing via service,TA0001,initial access
+T1195,supply chain compromise,TA0001,initial access
+T1195.001,compromise software dependencies and development tools,TA0001,initial access
+T1195.002,compromise software supply chain,TA0001,initial access
+T1195.003,compromise hardware supply chain,TA0001,initial access
+T1196,control panel items,TA0005|TA0002,stealth|execution
+T1197,bits jobs,TA0005|TA0003|TA0002,stealth|persistence|execution
+T1198,sip and trust provider hijacking,TA0005|TA0003,stealth|persistence
+T1199,trusted relationship,TA0001,initial access
+T1200,hardware additions,TA0001,initial access
+T1201,password policy discovery,TA0007,discovery
+T1202,indirect command execution,TA0005,stealth
+T1203,exploitation for client execution,TA0002,execution
+T1204,user execution,TA0002,execution
+T1204.001,malicious link,TA0002,execution
+T1204.002,malicious file,TA0002,execution
+T1204.003,malicious image,TA0002,execution
+T1204.004,malicious copy and paste,TA0002,execution
+T1204.005,malicious library,TA0002,execution
+T1205,traffic signaling,TA0005|TA0003|TA0011,stealth|persistence|command and control
+T1205.001,port knocking,TA0005|TA0003|TA0011,stealth|persistence|command and control
+T1205.002,socket filters,TA0005|TA0003|TA0011,stealth|persistence|command and control
+T1206,sudo caching,TA0004,privilege escalation
+T1207,rogue domain controller,TA0112,defense impairment
+T1208,kerberoasting,TA0006,credential access
+T1209,time providers,TA0003,persistence
+T1210,exploitation of remote services,TA0008,lateral movement
+T1211,exploitation for stealth,TA0005,stealth
+T1212,exploitation for credential access,TA0006,credential access
+T1213,data from information repositories,TA0009,collection
+T1213.001,confluence,TA0009,collection
+T1213.002,sharepoint,TA0009,collection
+T1213.003,code repositories,TA0009,collection
+T1213.004,customer relationship management software,TA0009,collection
+T1213.005,messaging applications,TA0009,collection
+T1213.006,databases,TA0009,collection
+T1214,credentials in registry,TA0006,credential access
+T1215,kernel modules and extensions,TA0003,persistence
+T1216,system script proxy execution,TA0005,stealth
+T1216.001,pubprn,TA0005,stealth
+T1216.002,syncappvpublishingserver,TA0005,stealth
+T1217,browser information discovery,TA0007,discovery
+T1218,system binary proxy execution,TA0005,stealth
+T1218.001,compiled html file,TA0005,stealth
+T1218.002,control panel,TA0005,stealth
+T1218.003,cmstp,TA0005,stealth
+T1218.004,installutil,TA0005,stealth
+T1218.005,mshta,TA0005,stealth
+T1218.007,msiexec,TA0005,stealth
+T1218.008,odbcconf,TA0005,stealth
+T1218.009,regsvcs/regasm,TA0005,stealth
+T1218.010,regsvr32,TA0005,stealth
+T1218.011,rundll32,TA0005,stealth
+T1218.012,verclsid,TA0005,stealth
+T1218.013,mavinject,TA0005,stealth
+T1218.014,mmc,TA0005,stealth
+T1218.015,electron applications,TA0005,stealth
+T1219,remote access tools,TA0011,command and control
+T1219.001,ide tunneling,TA0011,command and control
+T1219.002,remote desktop software,TA0011,command and control
+T1219.003,remote access hardware,TA0011,command and control
+T1220,xsl script processing,TA0005,stealth
+T1221,template injection,TA0005,stealth
+T1222,file and directory permissions modification,TA0112,defense impairment
+T1222.001,windows permissions,TA0112,defense impairment
+T1222.002,linux and mac permissions,TA0112,defense impairment
+T1223,compiled html file,TA0005|TA0002,stealth|execution
+T1480,execution guardrails,TA0005,stealth
+T1480.001,environmental keying,TA0005,stealth
+T1480.002,mutual exclusion,TA0005,stealth
+T1482,domain trust discovery,TA0007,discovery
+T1483,domain generation algorithms,TA0011,command and control
+T1484,domain or tenant policy modification,TA0112|TA0004,defense impairment|privilege escalation
+T1484.001,group policy modification,TA0112|TA0004,defense impairment|privilege escalation
+T1484.002,trust modification,TA0112|TA0004,defense impairment|privilege escalation
+T1485,data destruction,TA0040,impact
+T1485.001,lifecycle-triggered deletion,TA0040,impact
+T1486,data encrypted for impact,TA0040,impact
+T1487,disk structure wipe,TA0040,impact
+T1488,disk content wipe,TA0040,impact
+T1489,service stop,TA0040,impact
+T1490,inhibit system recovery,TA0040,impact
+T1491,defacement,TA0040,impact
+T1491.001,internal defacement,TA0040,impact
+T1491.002,external defacement,TA0040,impact
+T1492,stored data manipulation,TA0040,impact
+T1493,transmitted data manipulation,TA0040,impact
+T1494,runtime data manipulation,TA0040,impact
+T1495,firmware corruption,TA0040,impact
+T1496,resource hijacking,TA0040,impact
+T1496.001,compute hijacking,TA0040,impact
+T1496.002,bandwidth hijacking,TA0040,impact
+T1496.003,sms pumping,TA0040,impact
+T1496.004,cloud service hijacking,TA0040,impact
+T1497,virtualization/sandbox evasion,TA0005|TA0007,stealth|discovery
+T1497.001,system checks,TA0005|TA0007,stealth|discovery
+T1497.002,user activity based checks,TA0005|TA0007,stealth|discovery
+T1497.003,time based checks,TA0005|TA0007,stealth|discovery
+T1498,network denial of service,TA0040,impact
+T1498.001,direct network flood,TA0040,impact
+T1498.002,reflection amplification,TA0040,impact
+T1499,endpoint denial of service,TA0040,impact
+T1499.001,os exhaustion flood,TA0040,impact
+T1499.002,service exhaustion flood,TA0040,impact
+T1499.003,application exhaustion flood,TA0040,impact
+T1499.004,application or system exploitation,TA0040,impact
+T1500,compile after delivery,TA0005,stealth
+T1501,systemd service,TA0003,persistence
+T1502,parent pid spoofing,TA0005|TA0004,stealth|privilege escalation
+T1503,credentials from web browsers,TA0006,credential access
+T1504,powershell profile,TA0003|TA0004,persistence|privilege escalation
+T1505,server software component,TA0003,persistence
+T1505.001,sql stored procedures,TA0003,persistence
+T1505.002,transport agent,TA0003,persistence
+T1505.003,web shell,TA0003,persistence
+T1505.004,iis components,TA0003,persistence
+T1505.005,terminal services dll,TA0003,persistence
+T1505.006,vsphere installation bundles,TA0003,persistence
+T1506,web session cookie,TA0005|TA0008,stealth|lateral movement
+T1514,elevated execution with prompt,TA0004,privilege escalation
+T1518,software discovery,TA0007,discovery
+T1518.001,security software discovery,TA0007,discovery
+T1518.002,backup software discovery,TA0007,discovery
+T1519,emond,TA0003|TA0004,persistence|privilege escalation
+T1522,cloud instance metadata api,TA0006,credential access
+T1525,implant internal image,TA0003,persistence
+T1526,cloud service discovery,TA0007,discovery
+T1527,application access token,TA0005|TA0008,stealth|lateral movement
+T1528,steal application access token,TA0006,credential access
+T1529,system shutdown/reboot,TA0040,impact
+T1530,data from cloud storage,TA0009,collection
+T1531,account access removal,TA0040,impact
+T1534,internal spearphishing,TA0008,lateral movement
+T1535,unused/unsupported cloud regions,TA0005,stealth
+T1536,revert cloud instance,TA0005,stealth
+T1537,transfer data to cloud account,TA0010,exfiltration
+T1538,cloud service dashboard,TA0007,discovery
+T1539,steal web session cookie,TA0006,credential access
+T1542,pre-os boot,TA0005|TA0003,stealth|persistence
+T1542.001,system firmware,TA0005|TA0003,stealth|persistence
+T1542.002,component firmware,TA0005|TA0003,stealth|persistence
+T1542.003,bootkit,TA0005|TA0003,stealth|persistence
+T1542.004,rommonkit,TA0005|TA0003,stealth|persistence
+T1542.005,tftp boot,TA0005|TA0003,stealth|persistence
+T1543,create or modify system process,TA0003|TA0004,persistence|privilege escalation
+T1543.001,launch agent,TA0003|TA0004,persistence|privilege escalation
+T1543.002,systemd service,TA0003|TA0004,persistence|privilege escalation
+T1543.003,windows service,TA0003|TA0004,persistence|privilege escalation
+T1543.004,launch daemon,TA0003|TA0004,persistence|privilege escalation
+T1543.005,container service,TA0003|TA0004,persistence|privilege escalation
+T1546,event triggered execution,TA0004|TA0003,privilege escalation|persistence
+T1546.001,change default file association,TA0004|TA0003,privilege escalation|persistence
+T1546.002,screensaver,TA0004|TA0003,privilege escalation|persistence
+T1546.003,windows management instrumentation event subscription,TA0004|TA0003,privilege escalation|persistence
+T1546.004,unix shell configuration modification,TA0004|TA0003,privilege escalation|persistence
+T1546.005,trap,TA0004|TA0003,privilege escalation|persistence
+T1546.006,lc_load_dylib addition,TA0004|TA0003,privilege escalation|persistence
+T1546.007,netsh helper dll,TA0004|TA0003,privilege escalation|persistence
+T1546.008,accessibility features,TA0004|TA0003,privilege escalation|persistence
+T1546.009,appcert dlls,TA0004|TA0003,privilege escalation|persistence
+T1546.010,appinit dlls,TA0004|TA0003,privilege escalation|persistence
+T1546.011,application shimming,TA0004|TA0003,privilege escalation|persistence
+T1546.012,image file execution options injection,TA0004|TA0003,privilege escalation|persistence
+T1546.013,powershell profile,TA0004|TA0003,privilege escalation|persistence
+T1546.014,emond,TA0004|TA0003,privilege escalation|persistence
+T1546.015,component object model hijacking,TA0004|TA0003,privilege escalation|persistence
+T1546.016,installer packages,TA0004|TA0003,privilege escalation|persistence
+T1546.017,udev rules,TA0003|TA0004,persistence|privilege escalation
+T1546.018,python startup hooks,TA0003|TA0004,persistence|privilege escalation
+T1547,boot or logon autostart execution,TA0003|TA0004,persistence|privilege escalation
+T1547.001,registry run keys / startup folder,TA0003|TA0004,persistence|privilege escalation
+T1547.002,authentication package,TA0003|TA0004,persistence|privilege escalation
+T1547.003,time providers,TA0003|TA0004,persistence|privilege escalation
+T1547.004,winlogon helper dll,TA0003|TA0004,persistence|privilege escalation
+T1547.005,security support provider,TA0003|TA0004,persistence|privilege escalation
+T1547.006,kernel modules and extensions,TA0003|TA0004,persistence|privilege escalation
+T1547.007,re-opened applications,TA0003|TA0004,persistence|privilege escalation
+T1547.008,lsass driver,TA0003|TA0004,persistence|privilege escalation
+T1547.009,shortcut modification,TA0003|TA0004,persistence|privilege escalation
+T1547.010,port monitors,TA0003|TA0004,persistence|privilege escalation
+T1547.011,plist modification,TA0003|TA0004,persistence|privilege escalation
+T1547.012,print processors,TA0003|TA0004,persistence|privilege escalation
+T1547.013,xdg autostart entries,TA0003|TA0004,persistence|privilege escalation
+T1547.014,active setup,TA0003|TA0004,persistence|privilege escalation
+T1547.015,login items,TA0003|TA0004,persistence|privilege escalation
+T1548,abuse elevation control mechanism,TA0004,privilege escalation
+T1548.001,setuid and setgid,TA0004,privilege escalation
+T1548.002,bypass user account control,TA0004,privilege escalation
+T1548.003,sudo and sudo caching,TA0004,privilege escalation
+T1548.004,elevated execution with prompt,TA0004,privilege escalation
+T1548.005,temporary elevated cloud access,TA0004,privilege escalation
+T1548.006,tcc manipulation,TA0004,privilege escalation
+T1550,use alternate authentication material,TA0008,lateral movement
+T1550.001,application access token,TA0008,lateral movement
+T1550.002,pass the hash,TA0008,lateral movement
+T1550.003,pass the ticket,TA0008,lateral movement
+T1550.004,web session cookie,TA0008,lateral movement
+T1552,unsecured credentials,TA0006,credential access
+T1552.001,credentials in files,TA0006,credential access
+T1552.002,credentials in registry,TA0006,credential access
+T1552.003,shell history,TA0006,credential access
+T1552.004,private keys,TA0006,credential access
+T1552.005,cloud instance metadata api,TA0006,credential access
+T1552.006,group policy preferences,TA0006,credential access
+T1552.007,container api,TA0006,credential access
+T1552.008,chat messages,TA0006,credential access
+T1553,subvert trust controls,TA0112,defense impairment
+T1553.001,gatekeeper bypass,TA0112,defense impairment
+T1553.002,code signing,TA0112,defense impairment
+T1553.003,sip and trust provider hijacking,TA0112,defense impairment
+T1553.004,install root certificate,TA0112,defense impairment
+T1553.005,mark-of-the-web bypass,TA0112,defense impairment
+T1553.006,code signing policy modification,TA0112,defense impairment
+T1554,compromise host software binary,TA0003,persistence
+T1555,credentials from password stores,TA0006,credential access
+T1555.001,keychain,TA0006,credential access
+T1555.002,securityd memory,TA0006,credential access
+T1555.003,credentials from web browsers,TA0006,credential access
+T1555.004,windows credential manager,TA0006,credential access
+T1555.005,password managers,TA0006,credential access
+T1555.006,cloud secrets management stores,TA0006,credential access
+T1556,modify authentication process,TA0112|TA0003|TA0006,defense impairment|persistence|credential access
+T1556.001,domain controller authentication,TA0112|TA0003|TA0006,defense impairment|persistence|credential access
+T1556.002,password filter dll,TA0112|TA0003|TA0006,defense impairment|persistence|credential access
+T1556.003,pluggable authentication modules,TA0112|TA0003|TA0006,defense impairment|persistence|credential access
+T1556.004,network device authentication,TA0112|TA0003|TA0006,defense impairment|persistence|credential access
+T1556.005,reversible encryption,TA0112|TA0003|TA0006,defense impairment|persistence|credential access
+T1556.006,multi-factor authentication,TA0112|TA0003|TA0006,defense impairment|persistence|credential access
+T1556.007,hybrid identity,TA0112|TA0003|TA0006,defense impairment|persistence|credential access
+T1556.008,network provider dll,TA0112|TA0003|TA0006,defense impairment|persistence|credential access
+T1556.009,conditional access policies,TA0112|TA0003|TA0006,defense impairment|persistence|credential access
+T1557,adversary-in-the-middle,TA0006|TA0009,credential access|collection
+T1557.001,name resolution poisoning and smb relay,TA0006|TA0009,credential access|collection
+T1557.002,arp cache poisoning,TA0006|TA0009,credential access|collection
+T1557.003,dhcp spoofing,TA0006|TA0009,credential access|collection
+T1557.004,evil twin,TA0006|TA0009,credential access|collection
+T1558,steal or forge kerberos tickets,TA0006,credential access
+T1558.001,golden ticket,TA0006,credential access
+T1558.002,silver ticket,TA0006,credential access
+T1558.003,kerberoasting,TA0006,credential access
+T1558.004,as-rep roasting,TA0006,credential access
+T1558.005,ccache files,TA0006,credential access
+T1559,inter-process communication,TA0002,execution
+T1559.001,component object model,TA0002,execution
+T1559.002,dynamic data exchange,TA0002,execution
+T1559.003,xpc services,TA0002,execution
+T1560,archive collected data,TA0009,collection
+T1560.001,archive via utility,TA0009,collection
+T1560.002,archive via library,TA0009,collection
+T1560.003,archive via custom method,TA0009,collection
+T1561,disk wipe,TA0040,impact
+T1561.001,disk content wipe,TA0040,impact
+T1561.002,disk structure wipe,TA0040,impact
+T1562,impair defenses,TA0005,stealth
+T1562.001,disable or modify tools,TA0005,stealth
+T1562.002,disable windows event logging,TA0005,stealth
+T1562.003,impair command history logging,TA0005,stealth
+T1562.004,disable or modify system firewall,TA0005,stealth
+T1562.006,indicator blocking,TA0005,stealth
+T1562.007,disable or modify cloud firewall,TA0005,stealth
+T1562.008,disable or modify cloud logs,TA0005,stealth
+T1562.009,safe mode boot,TA0005,stealth
+T1562.010,downgrade attack,TA0005,stealth
+T1562.011,spoof security alerting,TA0005,stealth
+T1562.012,disable or modify linux audit system,TA0005,stealth
+T1562.013,disable or modify network device firewall,TA0005,stealth
+T1563,remote service session hijacking,TA0008,lateral movement
+T1563.001,ssh hijacking,TA0008,lateral movement
+T1563.002,rdp hijacking,TA0008,lateral movement
+T1564,hide artifacts,TA0005,stealth
+T1564.001,hidden files and directories,TA0005,stealth
+T1564.002,hidden users,TA0005,stealth
+T1564.003,hidden window,TA0005,stealth
+T1564.004,ntfs file attributes,TA0005,stealth
+T1564.005,hidden file system,TA0005,stealth
+T1564.006,run virtual instance,TA0005,stealth
+T1564.007,vba stomping,TA0005,stealth
+T1564.008,email hiding rules,TA0005,stealth
+T1564.009,resource forking,TA0005,stealth
+T1564.010,process argument spoofing,TA0005,stealth
+T1564.011,ignore process interrupts,TA0005,stealth
+T1564.012,file/path exclusions,TA0005,stealth
+T1564.013,bind mounts,TA0005,stealth
+T1564.014,extended attributes,TA0005,stealth
+T1565,data manipulation,TA0040,impact
+T1565.001,stored data manipulation,TA0040,impact
+T1565.002,transmitted data manipulation,TA0040,impact
+T1565.003,runtime data manipulation,TA0040,impact
+T1566,phishing,TA0001,initial access
+T1566.001,spearphishing attachment,TA0001,initial access
+T1566.002,spearphishing link,TA0001,initial access
+T1566.003,spearphishing via service,TA0001,initial access
+T1566.004,spearphishing voice,TA0001,initial access
+T1567,exfiltration over web service,TA0010,exfiltration
+T1567.001,exfiltration to code repository,TA0010,exfiltration
+T1567.002,exfiltration to cloud storage,TA0010,exfiltration
+T1567.003,exfiltration to text storage sites,TA0010,exfiltration
+T1567.004,exfiltration over webhook,TA0010,exfiltration
+T1568,dynamic resolution,TA0011,command and control
+T1568.001,fast flux dns,TA0011,command and control
+T1568.002,domain generation algorithms,TA0011,command and control
+T1568.003,dns calculation,TA0011,command and control
+T1569,system services,TA0002,execution
+T1569.001,launchctl,TA0002,execution
+T1569.002,service execution,TA0002,execution
+T1569.003,systemctl,TA0002,execution
+T1570,lateral tool transfer,TA0008,lateral movement
+T1571,non-standard port,TA0011,command and control
+T1572,protocol tunneling,TA0011,command and control
+T1573,encrypted channel,TA0011,command and control
+T1573.001,symmetric cryptography,TA0011,command and control
+T1573.002,asymmetric cryptography,TA0011,command and control
+T1574,hijack execution flow,TA0005|TA0002,stealth|execution
+T1574.001,dll,TA0005|TA0002,stealth|execution
+T1574.002,dll side-loading,TA0005|TA0002,stealth|execution
+T1574.004,dylib hijacking,TA0005|TA0002,stealth|execution
+T1574.005,executable installer file permissions weakness,TA0005|TA0002,stealth|execution
+T1574.006,dynamic linker hijacking,TA0005|TA0002,stealth|execution
+T1574.007,path interception by path environment variable,TA0005|TA0002,stealth|execution
+T1574.008,path interception by search order hijacking,TA0005|TA0002,stealth|execution
+T1574.009,path interception by unquoted path,TA0005|TA0002,stealth|execution
+T1574.010,services file permissions weakness,TA0005|TA0002,stealth|execution
+T1574.011,services registry permissions weakness,TA0005|TA0002,stealth|execution
+T1574.012,cor_profiler,TA0005|TA0002,stealth|execution
+T1574.013,kernelcallbacktable,TA0005|TA0002,stealth|execution
+T1574.014,appdomainmanager,TA0005|TA0002,stealth|execution
+T1578,modify cloud compute infrastructure,TA0112,defense impairment
+T1578.001,create snapshot,TA0112,defense impairment
+T1578.002,create cloud instance,TA0112,defense impairment
+T1578.003,delete cloud instance,TA0112,defense impairment
+T1578.004,revert cloud instance,TA0112,defense impairment
+T1578.005,modify cloud compute configurations,TA0112,defense impairment
+T1580,cloud infrastructure discovery,TA0007,discovery
+T1583,acquire infrastructure,TA0042,resource development
+T1583.001,domains,TA0042,resource development
+T1583.002,dns server,TA0042,resource development
+T1583.003,virtual private server,TA0042,resource development
+T1583.004,server,TA0042,resource development
+T1583.005,botnet,TA0042,resource development
+T1583.006,web services,TA0042,resource development
+T1583.007,serverless,TA0042,resource development
+T1583.008,malvertising,TA0042,resource development
+T1584,compromise infrastructure,TA0042,resource development
+T1584.001,domains,TA0042,resource development
+T1584.002,dns server,TA0042,resource development
+T1584.003,virtual private server,TA0042,resource development
+T1584.004,server,TA0042,resource development
+T1584.005,botnet,TA0042,resource development
+T1584.006,web services,TA0042,resource development
+T1584.007,serverless,TA0042,resource development
+T1584.008,network devices,TA0042,resource development
+T1585,establish accounts,TA0042,resource development
+T1585.001,social media accounts,TA0042,resource development
+T1585.002,email accounts,TA0042,resource development
+T1585.003,cloud accounts,TA0042,resource development
+T1586,compromise accounts,TA0042,resource development
+T1586.001,social media accounts,TA0042,resource development
+T1586.002,email accounts,TA0042,resource development
+T1586.003,cloud accounts,TA0042,resource development
+T1587,develop capabilities,TA0042,resource development
+T1587.001,malware,TA0042,resource development
+T1587.002,code signing certificates,TA0042,resource development
+T1587.003,digital certificates,TA0042,resource development
+T1587.004,exploits,TA0042,resource development
+T1588,obtain capabilities,TA0042,resource development
+T1588.001,malware,TA0042,resource development
+T1588.002,tool,TA0042,resource development
+T1588.003,code signing certificates,TA0042,resource development
+T1588.004,digital certificates,TA0042,resource development
+T1588.005,exploits,TA0042,resource development
+T1588.006,vulnerabilities,TA0042,resource development
+T1588.007,artificial intelligence,TA0042,resource development
+T1589,gather victim identity information,TA0043,reconnaissance
+T1589.001,credentials,TA0043,reconnaissance
+T1589.002,email addresses,TA0043,reconnaissance
+T1589.003,employee names,TA0043,reconnaissance
+T1590,gather victim network information,TA0043,reconnaissance
+T1590.001,domain properties,TA0043,reconnaissance
+T1590.002,dns,TA0043,reconnaissance
+T1590.003,network trust dependencies,TA0043,reconnaissance
+T1590.004,network topology,TA0043,reconnaissance
+T1590.005,ip addresses,TA0043,reconnaissance
+T1590.006,network security appliances,TA0043,reconnaissance
+T1591,gather victim org information,TA0043,reconnaissance
+T1591.001,determine physical locations,TA0043,reconnaissance
+T1591.002,business relationships,TA0043,reconnaissance
+T1591.003,identify business tempo,TA0043,reconnaissance
+T1591.004,identify roles,TA0043,reconnaissance
+T1592,gather victim host information,TA0043,reconnaissance
+T1592.001,hardware,TA0043,reconnaissance
+T1592.002,software,TA0043,reconnaissance
+T1592.003,firmware,TA0043,reconnaissance
+T1592.004,client configurations,TA0043,reconnaissance
+T1593,search open websites/domains,TA0043,reconnaissance
+T1593.001,social media,TA0043,reconnaissance
+T1593.002,search engines,TA0043,reconnaissance
+T1593.003,code repositories,TA0043,reconnaissance
+T1594,search victim-owned websites,TA0043,reconnaissance
+T1595,active scanning,TA0043,reconnaissance
+T1595.001,scanning ip blocks,TA0043,reconnaissance
+T1595.002,vulnerability scanning,TA0043,reconnaissance
+T1595.003,wordlist scanning,TA0043,reconnaissance
+T1596,search open technical databases,TA0043,reconnaissance
+T1596.001,dns/passive dns,TA0043,reconnaissance
+T1596.002,whois,TA0043,reconnaissance
+T1596.003,digital certificates,TA0043,reconnaissance
+T1596.004,cdns,TA0043,reconnaissance
+T1596.005,scan databases,TA0043,reconnaissance
+T1597,search closed sources,TA0043,reconnaissance
+T1597.001,threat intel vendors,TA0043,reconnaissance
+T1597.002,purchase technical data,TA0043,reconnaissance
+T1598,phishing for information,TA0043,reconnaissance
+T1598.001,spearphishing service,TA0043,reconnaissance
+T1598.002,spearphishing attachment,TA0043,reconnaissance
+T1598.003,spearphishing link,TA0043,reconnaissance
+T1598.004,spearphishing voice,TA0043,reconnaissance
+T1599,network boundary bridging,TA0112,defense impairment
+T1599.001,network address translation traversal,TA0112,defense impairment
+T1600,weaken encryption,TA0112,defense impairment
+T1600.001,reduce key space,TA0112,defense impairment
+T1600.002,disable crypto hardware,TA0112,defense impairment
+T1601,modify system image,TA0112,defense impairment
+T1601.001,patch system image,TA0112,defense impairment
+T1601.002,downgrade system image,TA0112,defense impairment
+T1602,data from configuration repository,TA0009,collection
+T1602.001,snmp (mib dump),TA0009,collection
+T1602.002,network device configuration dump,TA0009,collection
+T1606,forge web credentials,TA0006,credential access
+T1606.001,web cookies,TA0006,credential access
+T1606.002,saml tokens,TA0006,credential access
+T1608,stage capabilities,TA0042,resource development
+T1608.001,upload malware,TA0042,resource development
+T1608.002,upload tool,TA0042,resource development
+T1608.003,install digital certificate,TA0042,resource development
+T1608.004,drive-by target,TA0042,resource development
+T1608.005,link target,TA0042,resource development
+T1608.006,seo poisoning,TA0042,resource development
+T1609,container administration command,TA0002,execution
+T1610,deploy container,TA0002,execution
+T1611,escape to host,TA0004,privilege escalation
+T1612,build image on host,TA0005,stealth
+T1613,container and resource discovery,TA0007,discovery
+T1614,system location discovery,TA0007,discovery
+T1614.001,system language discovery,TA0007,discovery
+T1615,group policy discovery,TA0007,discovery
+T1619,cloud storage object discovery,TA0007,discovery
+T1620,reflective code loading,TA0005,stealth
+T1621,multi-factor authentication request generation,TA0006,credential access
+T1622,debugger evasion,TA0005|TA0007,stealth|discovery
+T1647,plist file modification,TA0112,defense impairment
+T1648,serverless execution,TA0002,execution
+T1649,steal or forge authentication certificates,TA0006,credential access
+T1650,acquire access,TA0042,resource development
+T1651,cloud administration command,TA0002,execution
+T1652,device driver discovery,TA0007,discovery
+T1653,power settings,TA0003,persistence
+T1654,log enumeration,TA0007,discovery
+T1656,impersonation,TA0005,stealth
+T1657,financial theft,TA0040,impact
+T1659,content injection,TA0001|TA0011,initial access|command and control
+T1665,hide infrastructure,TA0011,command and control
+T1666,modify cloud resource hierarchy,TA0112,defense impairment
+T1667,email bombing,TA0040,impact
+T1668,exclusive control,TA0003,persistence
+T1669,wi-fi networks,TA0001,initial access
+T1671,cloud application integration,TA0003,persistence
+T1672,email spoofing,TA0005,stealth
+T1673,virtual machine discovery,TA0007,discovery
+T1674,input injection,TA0002,execution
+T1675,esxi administration command,TA0002,execution
+T1677,poisoned pipeline execution,TA0002,execution
+T1678,delay execution,TA0005,stealth
+T1679,selective exclusion,TA0005,stealth
+T1680,local storage discovery,TA0007,discovery
+T1681,search threat vendor data,TA0043,reconnaissance
+T1682,query public ai services,TA0043,reconnaissance
+T1683,generate content,TA0042,resource development
+T1683.001,written content,TA0042,resource development
+T1683.002,audio-visual content,TA0042,resource development
+T1684,social engineering,TA0005,stealth
+T1684.001,impersonation,TA0005,stealth
+T1684.002,email spoofing,TA0005,stealth
+T1685,disable or modify tools,TA0112,defense impairment
+T1685.001,disable or modify windows event log,TA0112,defense impairment
+T1685.002,disable or modify cloud log,TA0112,defense impairment
+T1685.003,modify or spoof tool ui,TA0112,defense impairment
+T1685.004,disable or modify linux audit system log,TA0112,defense impairment
+T1685.005,clear windows event logs,TA0112,defense impairment
+T1685.006,clear linux or mac system logs,TA0112,defense impairment
+T1686,disable or modify system firewall,TA0112,defense impairment
+T1686.001,cloud firewall,TA0112,defense impairment
+T1686.002,network device firewall,TA0112,defense impairment
+T1686.003,windows host firewall,TA0112,defense impairment
+T1687,exploitation for defense impairment,TA0112,defense impairment
+T1688,safe mode boot,TA0112,defense impairment
+T1689,downgrade attack,TA0112,defense impairment
+T1690,prevent command history logging,TA0112,defense impairment
