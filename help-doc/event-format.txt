@@ -1,0 +1,220 @@
+
+activity => terminal commands, logs, network packets logs
+activity_type => command, query, network_traffic, audit_log, enriched_log, raw_log
+platform => linux, mac, window,
+executor => powershell, terminal etc.
+technique_id => T1053
+
+
+##unsw pcap argus csv format
+srcip,dstip,proto,sport,dsport,TotPkts,TotBytes,state,dur
+175.45.176.3,149.171.126.16,tcp,22592,imap,52,42748,FIN,0.649902
+175.45.176.0,149.171.126.16,tcp,62762,56430,24,13550,FIN,1.623129
+
+## unsw ml csv format
+id,dur,proto,service,state,spkts,dpkts,sbytes,dbytes,rate,sttl,dttl,sload,dload,sloss,dloss,sinpkt,dinpkt,sjit,djit,swin,stcpb,dtcpb,dwin,tcprtt,synack,ackdat,smean,dmean,trans_depth,response_body_len,ct_srv_src,ct_state_ttl,ct_dst_ltm,ct_src_dport_ltm,ct_dst_sport_ltm,ct_dst_src_ltm,is_ftp_login,ct_ftp_cmd,ct_flw_http_mthd,ct_src_ltm,ct_srv_dst,is_sm_ips_ports,attack_cat,label
+1,0.121478,tcp,-,FIN,6,4,258,172,74.08749,252,254,14158.94238,8495.365234,0,0,24.2956,8.375,30.177547,11.830604,255,621772692,2202533631,255,0,0,0,43,43,0,0,1,0,1,1,1,1,0,0,0,1,1,0,Normal,0
+2,0.649902,tcp,-,FIN,14,38,734,42014,78.473372,62,252,8395.112305,503571.3125,2,17,49.915,15.432865,61.426934,1387.77833,255,1417884146,3077387971,255,0,0,0,52,1106,0,0,43,1,1,1,1,2,0,0,0,1,6,0,Normal,0
+
+
+## atomic red yaml processed events
+
+{'tactic_id': 'TA0002|TA0003|TA0004', 'tactic_name': 'execution|persistence|privilege escalation', 'technique_id': 'T1053', 'sub_technique_id': 'T1053.005', 'command': 'SCHTASKS /Create /SC ONCE /TN spawn /TR #{task_command} /ST #{time}\n', 'platform': 'command_prompt', 'description': 'Upon successful execution, cmd.exe will create a scheduled task to spawn cmd.exe at 20:10.\n', 'source': 'atomicred'}
+
+
+## caldera processed events
+# event_id : duplicate
+
+{
+    "event_id": "90c2efaa-8205-480d-8bb6-61d90dbaf81b",
+    "timestamp": "2026-05-03T03:30:31Z",
+    "host": "ubuntu-vb",
+    "agent_id": "ekvukh",
+    "username": "ubuntu",
+    "platform": "linux",
+    "executor": "sh",
+    "command": "find / -name '*.wav' -type f -not -path '*/\\.*' -size -500k 2>/dev/null | head -5",
+    "stdout": "",
+    "stderr": "",
+    "exit_code": 0,
+    "status": "success",
+    "technique_id": "T1005",
+    "technique_name": "Data from Local System",
+    "tactic": "collection",
+    "operation_name": "may032026-caldera-test-001 (2026-05-03T03:29:51.615Z)",
+    "adversary": "test-suite-ubuntu-window10",
+    "source": "caldera",
+    "activity_type": "host",
+    "category": "collection",
+    "src_ip": "192.168.2.36",
+    "dst_ip": "10.0.2.15"
+  }
+
+
+
+  ## CIC csv processed events
+
+  {"event_id": "88a42983-a5d6-4d45-b85c-482c96408679", "timestamp": "2017-07-03T09:24:53.561000", "src_ip": "0.0.0.0", "dst_ip": "0.0.0.0", "src_port": null, "dst_port": 80, "protocol": null, "host": null, "username": null, "command": null, "executor": null, "flow_features": {"flow_duration": 1453.0, "total_fwd_packets": 3.0, "total_backward_packets": 6.0, "total_length_of_fwd_packets": 26.0, "total_length_of_bwd_packets": 11607.0, "fwd_packet_length_max": 20.0, "fwd_packet_length_min": 0.0, "fwd_packet_length_mean": 8.666666667, "fwd_packet_length_std": 10.26320288, "bwd_packet_length_max": 4380.0, "bwd_packet_length_min": 0.0, "bwd_packet_length_mean": 1934.5, "bwd_packet_length_std": 2177.344966, "flow_bytes_s": 8006194.081, "flow_packets_s": 6194.081211, "flow_iat_mean": 181.625, "flow_iat_std": 238.0941815, "flow_iat_max": 719.0, "flow_iat_min": 4.0, "fwd_iat_total": 901.0, "fwd_iat_mean": 450.5, "fwd_iat_std": 460.3265146, "fwd_iat_max": 776.0, "fwd_iat_min": 125.0, "bwd_iat_total": 1396.0, "bwd_iat_mean": 279.2, "bwd_iat_std": 407.2851581, "bwd_iat_max": 972.0, "bwd_iat_min": 4.0, "fwd_psh_flags": 0.0, "bwd_psh_flags": 0.0, "fwd_urg_flags": 0.0, "bwd_urg_flags": 0.0, "fwd_header_length": 72.0, "bwd_header_length": 132.0, "fwd_packets_s": 2064.693737, "bwd_packets_s": 4129.387474, "min_packet_length": 0.0, "max_packet_length": 4380.0, "packet_length_mean": 1163.3, "packet_length_std": 1903.962654, "packet_length_variance": 3625073.789, "fin_flag_count": 0.0, "syn_flag_count": 0.0, "rst_flag_count": 0.0, "psh_flag_count": 1.0, "ack_flag_count": 0.0, "urg_flag_count": 0.0, "cwe_flag_count": 0.0, "ece_flag_count": 0.0, "down_up_ratio": 2.0, "average_packet_size": 1292.555556, "avg_fwd_segment_size": 8.666666667, "avg_bwd_segment_size": 1934.5, "fwd_avg_bytes_bulk": 0.0, "fwd_avg_packets_bulk": 0.0, "fwd_avg_bulk_rate": 0.0, "bwd_avg_bytes_bulk": 0.0, "bwd_avg_packets_bulk": 0.0, "bwd_avg_bulk_rate": 0.0, "subflow_fwd_packets": 3.0, "subflow_fwd_bytes": 26.0, "subflow_bwd_packets": 6.0, "subflow_bwd_bytes": 11607.0, "init_win_bytes_forward": 8192.0, "init_win_bytes_backward": 229.0, "act_data_pkt_fwd": 2.0, "min_seg_size_forward": 20.0, "active_mean": 0.0, "active_std": 0.0, "active_max": 0.0, "active_min": 0.0, "idle_mean": 0.0, "idle_std": 0.0, "idle_max": 0.0, "idle_min": 0.0}, "technique_id": "T1498", "technique_name": "Distributed Denial of Service", "tactic": "TA0040", "category": "attack", "activity_type": "network", "status": "attack_detected", "source": "cic", "attack_type": "DDoS"}
+
+
+
+  #### DARPA network events 
+
+  ## tcp dump parsed events format
+
+  {"event_id": "93e0bcb0-e53f-4a8a-b642-6fed2df9e193", "timestamp": "18:30:07.618526", "src_ip": "192.168.1.10", "dst_ip": "172.16.112.10", "src_port": 123, "dst_port": 123, "protocol": "NTP", "packet_info": "18:30:07.618526 IP 192.168.1.10.123 > 172.16.112.10.123: NTPv3, Server, length 48", "activity_type": "network", "source": "darpa1999", "week": "week1", "day": "monday", "category": "unknown"}
+
+
+### splunk security content detection rules
+
+{"rule_name": "ESXi Loghost Config Tampering", "description": "This detection identifies changes to the syslog loghost configuration on an ESXi host, which may indicate an attempt to disrupt log forwarding and evade detection.", "search_query": "`esxi_syslog` Message=\"*Set called with key*\" AND Message IN (\"*Syslog.global.logHost*\",\"*Syslog.global.logdir*\") | rex field=_raw \"key '(?<key>[^']+)', value '\\\"(?<value>[^\\\"]+)\\\"'\" | rex field=_raw \"Z (?<dest>[\\w\\.]+)\\s\" | stats min(_time) as firstTime max(_time) as lastTime count by dest key value | `security_content_ctime(firstTime)` | `security_content_ctime(lastTime)` | `esxi_loghost_config_tampering_filter`", "mitre_technique_ids": ["T1685"], "analytic_story": ["ESXi Post Compromise", "Black Basta Ransomware"], "security_domain": "endpoint", "references": [], "activity_type": "detection_rule", "source": "splunk"}
+
+
+
+## snort rules format
+
+{"sid": "214", "protocol": "tcp", "src_ip": "$EXTERNAL_NET", "src_port": "any", "dst_ip": "$TELNET_SERVERS", "dst_port": "23", "direction": "outbound", "msg": "MALWARE-BACKDOOR MISC Linux rootkit attempt lrkr0x", "flow": "to_server,established", "content": "lrkr0x", "metadata": "ruleset community", "class_type": "attempted-admin", "icode": "", "itype": "", "snort_type": "alert", "source": "snort", "reference": {"cve": [], "mitre": ["T1014"], "url": []}}
+
+
+
+
+## static rule for knowledge
+
+{
+  "rule_id": "rl-1001",
+  "rule_type": "process",
+  "command": "find / -name '*.wav' -type f -not -path '*/\\.*' -size -500k 2>/dev/null | head -5",
+  "executor": "sh",
+  "platform": "linux",
+  "activity_type": "host",
+  "technique_id": "T1005",
+  "severity": "0.85"
+},
+{
+  "rule_id": "rl-1030",
+  "rule_type": "audit",
+  "event": "ioctl(2)",
+  "NA_audit_id": "-2",
+  "path": "/dev/",
+  "platform": "solaris",
+  "activity_type": "host",
+  "technique_id": "T1090",
+  "severity": "0.85"
+},
+{
+  "rule_id": "rl-1290",
+  "rule_type": "traffic",
+  "condition": "flow_bytes_s > 1000000 AND bwd_packet_length_max > 4000",
+  "executor": "sh",
+  "platform": "linux",
+  "activity_type": "network",
+  "technique_id": "T1498",
+  "severity": "0.90"
+}
+
+
+###### Raw LLMs stats
+
+## caldera - llama3.1
+
+stats={'T1057': {'matched': 34, 'missed': 18}, 'T1082': {'matched': 2, 'missed': 6}, 'T1197': {'matched': 1, 'missed': 1}, 'T1518': {'matched': 0, 'missed': 4}, 'T1033': {'matched': 0, 'missed': 6}, 'T1552.004': {'matched': 0, 'missed': 5}, 'T1112': {'matched': 1, 'missed': 11}, 'T1071.004': {'matched': 0, 'missed': 1}, 'T1005': {'matched': 0, 'missed': 7}, 'T1069.001': {'matched': 0, 'missed': 2}, 'T1547.004': {'matched': 0, 'missed': 2}, 'T1003.004': {'matched': 0, 'missed': 2}, 'T1070.003': {'matched': 0, 'missed': 1}, 'T1555': {'matched': 0, 'missed': 1}, 'T1003.001': {'matched': 0, 'missed': 6}, 'T1560.001': {'matched': 0, 'missed': 4}, 'T1083': {'matched': 4, 'missed': 3}, 'T1003.002': {'matched': 0, 'missed': 2}, 'T1074.001': {'matched': 0, 'missed': 7}, 'T1003': {'matched': 0, 'missed': 2}, 'T1018': {'matched': 0, 'missed': 1}, 'T1027': {'matched': 0, 'missed': 2}, 'T1016': {'matched': 0, 'missed': 4}, 'T1046': {'matched': 0, 'missed': 1}, 'T1098.004': {'matched': 0, 'missed': 2}, 'T1218.005': {'matched': 0, 'missed': 1}, 'T1135': {'matched': 0, 'missed': 1}, 'T1059.001': {'matched': 0, 'missed': 2}, 'T1049': {'matched': 0, 'missed': 2}, 'T1222': {'matched': 0, 'missed': 2}, 'T1518.001': {'matched': 0, 'missed': 2}, 'T1562.002': {'matched': 0, 'missed': 2}, 'T1552.001': {'matched': 0, 'missed': 1}, 'T1021.004': {'matched': 0, 'missed': 2}, 'T1095': {'matched': 0, 'missed': 2}, 'T1016.001': {'matched': 0, 'missed': 2}, 'T1087.001': {'matched': 0, 'missed': 2}, 'T1547.008': {'matched': 0, 'missed': 2}, 'T1059.004': {'matched': 0, 'missed': 2}, 'T1546': {'matched': 0, 'missed': 2}, 'T1041': {'matched': 0, 'missed': 2}, 'T1021.003': {'matched': 0, 'missed': 1}, 'T1110.004': {'matched': 0, 'missed': 1}}
+{'T1057': {'matched': 34, 'missed': 18, 'total': 52, 'accuracy_percent': 65.4}, 'T1082': {'matched': 2, 'missed': 6, 'total': 8, 'accuracy_percent': 25.0}, 'T1197': {'matched': 1, 'missed': 1, 'total': 2, 'accuracy_percent': 50.0}, 'T1518': {'matched': 0, 'missed': 4, 'total': 4, 'accuracy_percent': 0.0}, 'T1033': {'matched': 0, 'missed': 6, 'total': 6, 'accuracy_percent': 0.0}, 'T1552.004': {'matched': 0, 'missed': 5, 'total': 5, 'accuracy_percent': 0.0}, 'T1112': {'matched': 1, 'missed': 11, 'total': 12, 'accuracy_percent': 8.3}, 'T1071.004': {'matched': 0, 'missed': 1, 'total': 1, 'accuracy_percent': 0.0}, 'T1005': {'matched': 0, 'missed': 7, 'total': 7, 'accuracy_percent': 0.0}, 'T1069.001': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1547.004': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1003.004': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1070.003': {'matched': 0, 'missed': 1, 'total': 1, 'accuracy_percent': 0.0}, 'T1555': {'matched': 0, 'missed': 1, 'total': 1, 'accuracy_percent': 0.0}, 'T1003.001': {'matched': 0, 'missed': 6, 'total': 6, 'accuracy_percent': 0.0}, 'T1560.001': {'matched': 0, 'missed': 4, 'total': 4, 'accuracy_percent': 0.0}, 'T1083': {'matched': 4, 'missed': 3, 'total': 7, 'accuracy_percent': 57.1}, 'T1003.002': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1074.001': {'matched': 0, 'missed': 7, 'total': 7, 'accuracy_percent': 0.0}, 'T1003': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1018': {'matched': 0, 'missed': 1, 'total': 1, 'accuracy_percent': 0.0}, 'T1027': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1016': {'matched': 0, 'missed': 4, 'total': 4, 'accuracy_percent': 0.0}, 'T1046': {'matched': 0, 'missed': 1, 'total': 1, 'accuracy_percent': 0.0}, 'T1098.004': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1218.005': {'matched': 0, 'missed': 1, 'total': 1, 'accuracy_percent': 0.0}, 'T1135': {'matched': 0, 'missed': 1, 'total': 1, 'accuracy_percent': 0.0}, 'T1059.001': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1049': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1222': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1518.001': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1562.002': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1552.001': {'matched': 0, 'missed': 1, 'total': 1, 'accuracy_percent': 0.0}, 'T1021.004': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1095': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1016.001': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1087.001': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1547.008': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1059.004': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1546': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1041': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1021.003': {'matched': 0, 'missed': 1, 'total': 1, 'accuracy_percent': 0.0}, 'T1110.004': {'matched': 0, 'missed': 1, 'total': 1, 'accuracy_percent': 0.0}, 'overall': {'matched': 42, 'missed': 132, 'total': 174, 'accuracy_percent': 24.1}}
+
+
+
+## caldera - mistral
+
+stats={'T1057': {'matched': 0, 'missed': 52}, 'T1218.005': {'matched': 0, 'missed': 1}, 'T1112': {'matched': 0, 'missed': 12}, 'T1033': {'matched': 0, 'missed': 6}, 'T1082': {'matched': 0, 'missed': 8}, 'T1016': {'matched': 0, 'missed': 4}, 'T1552.004': {'matched': 0, 'missed': 5}, 'T1069.001': {'matched': 0, 'missed': 2}, 'T1083': {'matched': 2, 'missed': 5}, 'T1003': {'matched': 0, 'missed': 2}, 'T1110.004': {'matched': 0, 'missed': 1}, 'T1074.001': {'matched': 0, 'missed': 7}, 'T1005': {'matched': 0, 'missed': 7}, 'T1197': {'matched': 0, 'missed': 2}, 'T1547.008': {'matched': 0, 'missed': 2}, 'T1059.001': {'matched': 0, 'missed': 2}, 'T1562.002': {'matched': 0, 'missed': 2}, 'T1547.004': {'matched': 0, 'missed': 2}, 'T1518': {'matched': 0, 'missed': 4}, 'T1095': {'matched': 0, 'missed': 2}, 'T1003.002': {'matched': 0, 'missed': 2}, 'T1016.001': {'matched': 0, 'missed': 2}, 'T1546': {'matched': 0, 'missed': 2}, 'T1041': {'matched': 0, 'missed': 2}, 'T1003.001': {'matched': 0, 'missed': 6}, 'T1135': {'matched': 0, 'missed': 1}, 'T1087.001': {'matched': 0, 'missed': 2}, 'T1021.003': {'matched': 0, 'missed': 1}, 'T1518.001': {'matched': 0, 'missed': 2}, 'T1071.004': {'matched': 0, 'missed': 1}, 'T1222': {'matched': 0, 'missed': 2}, 'T1003.004': {'matched': 0, 'missed': 2}, 'T1059.004': {'matched': 0, 'missed': 2}, 'T1560.001': {'matched': 0, 'missed': 4}, 'T1049': {'matched': 0, 'missed': 2}, 'T1098.004': {'matched': 0, 'missed': 2}, 'T1027': {'matched': 0, 'missed': 2}, 'T1070.003': {'matched': 0, 'missed': 1}, 'T1021.004': {'matched': 0, 'missed': 2}, 'T1555': {'matched': 0, 'missed': 1}, 'T1046': {'matched': 1, 'missed': 0}, 'T1552.001': {'matched': 0, 'missed': 1}, 'T1018': {'matched': 0, 'missed': 1}}
+{'T1057': {'matched': 0, 'missed': 52, 'total': 52, 'accuracy_percent': 0.0}, 'T1218.005': {'matched': 0, 'missed': 1, 'total': 1, 'accuracy_percent': 0.0}, 'T1112': {'matched': 0, 'missed': 12, 'total': 12, 'accuracy_percent': 0.0}, 'T1033': {'matched': 0, 'missed': 6, 'total': 6, 'accuracy_percent': 0.0}, 'T1082': {'matched': 0, 'missed': 8, 'total': 8, 'accuracy_percent': 0.0}, 'T1016': {'matched': 0, 'missed': 4, 'total': 4, 'accuracy_percent': 0.0}, 'T1552.004': {'matched': 0, 'missed': 5, 'total': 5, 'accuracy_percent': 0.0}, 'T1069.001': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1083': {'matched': 2, 'missed': 5, 'total': 7, 'accuracy_percent': 28.6}, 'T1003': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1110.004': {'matched': 0, 'missed': 1, 'total': 1, 'accuracy_percent': 0.0}, 'T1074.001': {'matched': 0, 'missed': 7, 'total': 7, 'accuracy_percent': 0.0}, 'T1005': {'matched': 0, 'missed': 7, 'total': 7, 'accuracy_percent': 0.0}, 'T1197': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1547.008': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1059.001': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1562.002': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1547.004': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1518': {'matched': 0, 'missed': 4, 'total': 4, 'accuracy_percent': 0.0}, 'T1095': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1003.002': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1016.001': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1546': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1041': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1003.001': {'matched': 0, 'missed': 6, 'total': 6, 'accuracy_percent': 0.0}, 'T1135': {'matched': 0, 'missed': 1, 'total': 1, 'accuracy_percent': 0.0}, 'T1087.001': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1021.003': {'matched': 0, 'missed': 1, 'total': 1, 'accuracy_percent': 0.0}, 'T1518.001': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1071.004': {'matched': 0, 'missed': 1, 'total': 1, 'accuracy_percent': 0.0}, 'T1222': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1003.004': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1059.004': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1560.001': {'matched': 0, 'missed': 4, 'total': 4, 'accuracy_percent': 0.0}, 'T1049': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1098.004': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1027': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1070.003': {'matched': 0, 'missed': 1, 'total': 1, 'accuracy_percent': 0.0}, 'T1021.004': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1555': {'matched': 0, 'missed': 1, 'total': 1, 'accuracy_percent': 0.0}, 'T1046': {'matched': 1, 'missed': 0, 'total': 1, 'accuracy_percent': 100.0}, 'T1552.001': {'matched': 0, 'missed': 1, 'total': 1, 'accuracy_percent': 0.0}, 'T1018': {'matched': 0, 'missed': 1, 'total': 1, 'accuracy_percent': 0.0}, 'overall': {'matched': 3, 'missed': 171, 'total': 174, 'accuracy_percent': 1.7}}
+
+
+### caldera gpt-5.4-mini
+
+stats={'T1057': {'matched': 46, 'missed': 6}, 'T1082': {'matched': 6, 'missed': 2}, 'T1552.004': {'matched': 0, 'missed': 5}, 'T1112': {'matched': 11, 'missed': 1}, 'T1003.001': {'matched': 0, 'missed': 6}, 'T1518': {'matched': 0, 'missed': 4}, 'T1003.004': {'matched': 0, 'missed': 2}, 'T1083': {'matched': 7, 'missed': 0}, 'T1027': {'matched': 1, 'missed': 1}, 'T1518.001': {'matched': 0, 'missed': 2}, 'T1110.004': {'matched': 0, 'missed': 1}, 'T1049': {'matched': 2, 'missed': 0}, 'T1074.001': {'matched': 0, 'missed': 7}, 'T1003': {'matched': 0, 'missed': 2}, 'T1546': {'matched': 0, 'missed': 2}, 'T1560.001': {'matched': 0, 'missed': 4}, 'T1016': {'matched': 3, 'missed': 1}, 'T1016.001': {'matched': 0, 'missed': 2}, 'T1005': {'matched': 2, 'missed': 5}, 'T1547.008': {'matched': 0, 'missed': 2}, 'T1059.001': {'matched': 0, 'missed': 2}, 'T1033': {'matched': 5, 'missed': 1}, 'T1552.001': {'matched': 0, 'missed': 1}, 'T1071.004': {'matched': 0, 'missed': 1}, 'T1095': {'matched': 0, 'missed': 2}, 'T1562.002': {'matched': 0, 'missed': 2}, 'T1021.004': {'matched': 0, 'missed': 2}, 'T1547.004': {'matched': 0, 'missed': 2}, 'T1098.004': {'matched': 0, 'missed': 2}, 'T1069.001': {'matched': 0, 'missed': 2}, 'T1070.003': {'matched': 0, 'missed': 1}, 'T1222': {'matched': 0, 'missed': 2}, 'T1087.001': {'matched': 0, 'missed': 2}, 'T1555': {'matched': 0, 'missed': 1}, 'T1059.004': {'matched': 0, 'missed': 2}, 'T1197': {'matched': 1, 'missed': 1}, 'T1003.002': {'matched': 0, 'missed': 2}, 'T1041': {'matched': 2, 'missed': 0}, 'T1135': {'matched': 1, 'missed': 0}, 'T1021.003': {'matched': 0, 'missed': 1}, 'T1218.005': {'matched': 0, 'missed': 1}, 'T1018': {'matched': 0, 'missed': 1}, 'T1046': {'matched': 0, 'missed': 1}}
+{'T1057': {'matched': 46, 'missed': 6, 'total': 52, 'accuracy_percent': 88.5}, 'T1082': {'matched': 6, 'missed': 2, 'total': 8, 'accuracy_percent': 75.0}, 'T1552.004': {'matched': 0, 'missed': 5, 'total': 5, 'accuracy_percent': 0.0}, 'T1112': {'matched': 11, 'missed': 1, 'total': 12, 'accuracy_percent': 91.7}, 'T1003.001': {'matched': 0, 'missed': 6, 'total': 6, 'accuracy_percent': 0.0}, 'T1518': {'matched': 0, 'missed': 4, 'total': 4, 'accuracy_percent': 0.0}, 'T1003.004': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1083': {'matched': 7, 'missed': 0, 'total': 7, 'accuracy_percent': 100.0}, 'T1027': {'matched': 1, 'missed': 1, 'total': 2, 'accuracy_percent': 50.0}, 'T1518.001': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1110.004': {'matched': 0, 'missed': 1, 'total': 1, 'accuracy_percent': 0.0}, 'T1049': {'matched': 2, 'missed': 0, 'total': 2, 'accuracy_percent': 100.0}, 'T1074.001': {'matched': 0, 'missed': 7, 'total': 7, 'accuracy_percent': 0.0}, 'T1003': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1546': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1560.001': {'matched': 0, 'missed': 4, 'total': 4, 'accuracy_percent': 0.0}, 'T1016': {'matched': 3, 'missed': 1, 'total': 4, 'accuracy_percent': 75.0}, 'T1016.001': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1005': {'matched': 2, 'missed': 5, 'total': 7, 'accuracy_percent': 28.6}, 'T1547.008': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1059.001': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1033': {'matched': 5, 'missed': 1, 'total': 6, 'accuracy_percent': 83.3}, 'T1552.001': {'matched': 0, 'missed': 1, 'total': 1, 'accuracy_percent': 0.0}, 'T1071.004': {'matched': 0, 'missed': 1, 'total': 1, 'accuracy_percent': 0.0}, 'T1095': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1562.002': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1021.004': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1547.004': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1098.004': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1069.001': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1070.003': {'matched': 0, 'missed': 1, 'total': 1, 'accuracy_percent': 0.0}, 'T1222': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1087.001': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1555': {'matched': 0, 'missed': 1, 'total': 1, 'accuracy_percent': 0.0}, 'T1059.004': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1197': {'matched': 1, 'missed': 1, 'total': 2, 'accuracy_percent': 50.0}, 'T1003.002': {'matched': 0, 'missed': 2, 'total': 2, 'accuracy_percent': 0.0}, 'T1041': {'matched': 2, 'missed': 0, 'total': 2, 'accuracy_percent': 100.0}, 'T1135': {'matched': 1, 'missed': 0, 'total': 1, 'accuracy_percent': 100.0}, 'T1021.003': {'matched': 0, 'missed': 1, 'total': 1, 'accuracy_percent': 0.0}, 'T1218.005': {'matched': 0, 'missed': 1, 'total': 1, 'accuracy_percent': 0.0}, 'T1018': {'matched': 0, 'missed': 1, 'total': 1, 'accuracy_percent': 0.0}, 'T1046': {'matched': 0, 'missed': 1, 'total': 1, 'accuracy_percent': 0.0}, 'overall': {'matched': 87, 'missed': 87, 'total': 174, 'accuracy_percent': 50.0}}
+
+
+### ollama 3.1, google collab baseline
+
+==================================================
+📊 RESULTS SUMMARY
+==================================================
+Total Events: 174
+✅ Matched: 58
+❌ Missed: 116
+📈 Accuracy: 33.3%
+
+
+## unsloth/Meta-Llama-3.1-8B-Instruct-bnb-4bit
+============================================================
+📊 FINE-TUNING RESULTS
+============================================================
+Baseline Accuracy (zero-shot): 33.3%
+Fine-tuned Accuracy:           72.0%
+Improvement:                   +38.7%
+
+
+## Methodology
+
+### Model Architecture
+- **Base Model**: Llama 3.1 8B Instruct
+- **Fine-tuning Method**: QLoRA (4-bit quantization + LoRA)
+- **Trainable Parameters**: 41.9M (0.52% of 8B parameters)
+- **Quantization**: 4-bit NF4 with double quantization
+
+### Training Configuration
+- **Framework**: Unsloth + Hugging Face TRL
+- **Hardware**: Google Colab T4 GPU (15GB VRAM)
+- **Training Duration**: ~45 minutes
+- **Dataset Size**: 174 labeled Caldera events
+- **Train/Test Split**: 80/20
+
+### Hyperparameters
+| Parameter | Value |
+|-----------|-------|
+| LoRA Rank (r) | 16 |
+| LoRA Alpha | 16 |
+| Learning Rate | 2e-4 |
+| Batch Size | 2 (effective 8 with accumulation) |
+| Epochs | 3 |
+| Warmup Steps | 10 |
+| Precision | FP16 |
+
+
+## Results
+
+### Performance Comparison
+| Model | Accuracy | Improvement |
+|-------|----------|-------------|
+| Zero-shot Llama 3.1 | 33.3% | Baseline |
+| GPT-5.4-mini (API) | 49.4% | +16.1% |
+| **Fine-tuned Llama 3.1 (Ours)** | **72.0%** | **+38.7%** |
+
+### Per-Technique Performance
+| Technique | Accuracy | Samples |
+|-----------|----------|---------|
+| T1005 (Data Collection) | 100% | 7 |
+| T1016 (Network Discovery) | 100% | 2 |
+| T1083 (File Discovery) | 100% | 2 |
+| T1518 (Software Discovery) | 100% | 1 |
+| T1087.001 (Account Discovery) | 100% | 1 |
+| T1049 (Network Connections) | 100% | 1 |
+
+### Training Metrics
+| Epoch | Training Loss | Validation Loss |
+|-------|---------------|-----------------|
+| 1 | 2.97 | 0.82 |
+| 2 | 0.77 | 0.60 |
+| 3 | 0.42 | 0.55 |
+
+
+4 epoch:
+============================================================
+📊 FINE-TUNING RESULTS
+============================================================
+Baseline Accuracy (zero-shot): 33.3%
+Fine-tuned Accuracy:           80.0%
+Improvement:                   +46.7%
+
+
+
