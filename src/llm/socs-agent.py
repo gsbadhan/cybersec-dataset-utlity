@@ -15,7 +15,7 @@ llm = ChatOpenAI(
     openai_api_key=OPENAI_API_KEY,
 )
 
-
+""" generate attack hypothesis based on security event"""
 def llm_call_1(security_event:str):
     system_prompt = "You are a cybersecurity expert."
     user_prompt = f"""
@@ -66,8 +66,18 @@ def llm_call_1(security_event:str):
     print(f"Agent Response={response.content}")
 
     return response.content
-    
 
+""" validate list of attack hypotheis """    
+def validate_attack_hypoths(attack_hypoths:dict):
+    valid_attack_hypoths = attack_hypoths
+    return valid_attack_hypoths
+
+""" compute confidence factor for each attack and return highest one """
+def compute_confidence_factor(attack_hypoths:dict):
+    hcs_attack_hypoths = attack_hypoths
+    return hcs_attack_hypoths
+
+""" generate explanation based on facts"""
 def llm_call_2(security_event:str, attack_hypoths:dict):
     confidence=0.89
     evidence=["encoded_command"]
@@ -91,5 +101,7 @@ if __name__ == "__main__":
     event= """{"@timestamp":"2026-05-03T03:29:51.000Z","event":{"id":"evt-8939bc01547de8402cedb0019c84e852","kind":"alert","category":["host","process","intrusion_detection"],"type":["process_creation","discovery","reconnaissance"],"severity":5,"action":"process_execution","enriched_at":"2026-05-03T03:30:26.000Z","enrichment_sources":["caldera","asset_db"]},"network":{"protocol":"tcp","transport":"tcp","direction":"egress","packets":1,"bytes":60},"source":{"ip":"10.0.2.15","port":2827,"address":"10.0.2.15","geo_ip":{"country_iso_code":"PRIVATE","country_name":"Private/RFC1918","location_type":"private","is_private":true},"asset":{"asset_type":"workstation","criticality":"HIGH","owner":"CORP\\Terminaluser","hostname":"TLPORT-PC-11","os":"Windows 10","location":"inside_network"}},"destination":{"ip":"10.0.2.15","port":80,"address":"10.0.2.15","geo_ip":{"country_iso_code":"PRIVATE","country_name":"Private/RFC1918","location_type":"private","is_private":true},"asset":{"asset_type":"workstation","criticality":"HIGH","is_external":false,"owner":"CORP\\Terminaluser","hostname":"TLPORT-PC-11"}},"tcp":{"flags":"SYN","seq":0,"window":512,"mss":1460},"process":{"pid":3728,"ppid":3312,"name":"powershell.exe","command_line":"powershell -EncodedCommand AHkAIABVAG4AZABlHDJKNLKJNK879JCNN","executor":"psh","user":"CORP\\Terminaluser","host":"TLPORT-PC-11","platform":"windows"}}"""
     #print(event)
     attack_hypoths= llm_call_1(security_event=event)
-    final_response= llm_call_2(security_event=event, attack_hypoths=attack_hypoths)
+    validate_attack_hypoths= validate_attack_hypoths(attack_hypoths=attack_hypoths)
+    hcs_attack_hypoths= compute_confidence_factor(attack_hypoths=validate_attack_hypoths)
+    final_response= llm_call_2(security_event=event, attack_hypoths=hcs_attack_hypoths)
 
