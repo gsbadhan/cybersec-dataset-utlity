@@ -2,10 +2,18 @@ import sys
 sys.path.insert(0,"./src")
 from langchain_openai import ChatOpenAI
 from config import OPENAI_API_KEY
-import re
 from langchain_core.messages import SystemMessage, HumanMessage
+from collections import defaultdict
+import csv
+import json
 
-llm = ChatOpenAI(
+_ALPHA=0.3
+_BETA=0.7
+_GAMMA=0.5
+_MITRE_TACTIC_TO_TECHNIQUE= defaultdict(set)
+_MITRE_TECHNIQUE_TO_SUBTECHNIQUE= defaultdict(set)
+
+llm1 = ChatOpenAI(
     model="gpt-5.4-mini-2026-03-17",
     temperature=0,
     max_completion_tokens=200,
@@ -15,8 +23,51 @@ llm = ChatOpenAI(
     openai_api_key=OPENAI_API_KEY,
 )
 
+llm2 = ChatOpenAI(
+    model="gpt-5.4-mini-2026-03-17",
+    temperature=0,
+    max_completion_tokens=200,
+    verbosity="low",
+    frequency_penalty=0.5,
+    presence_penalty=0.5,
+    openai_api_key=OPENAI_API_KEY,
+)
+
+def build_attack_dictionaries():
+    global _MITRE_TACTIC_TO_TECHNIQUE
+    global _MITRE_TECHNIQUE_TO_SUBTECHNIQUE
+    mitre_file= "/Users/gurpreetsingh/Downloads/cybersec-dataset/cybersec-dataset-utlity/mitre_tactic_technique.csv"
+    with open(mitre_file, 'r') as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            tactic_id = row['tactic_id']
+            technique_id = row['technique_id']
+            
+            # Extract base technique ID (remove everything after '.')
+            base_technique = technique_id.split('.')[0]
+            
+            # Add mapping: tactic_id -> base_technique
+            _MITRE_TACTIC_TO_TECHNIQUE[tactic_id].add(base_technique)
+            
+            # If it's a sub-technique, map base -> sub
+            _MITRE_TECHNIQUE_TO_SUBTECHNIQUE[base_technique].add(technique_id)
+    
+    # Convert sets to sorted lists for cleaner output
+    _MITRE_TACTIC_TO_TECHNIQUE = {
+        tactic: sorted(list(techs)) 
+        for tactic, techs in _MITRE_TACTIC_TO_TECHNIQUE.items()
+    }
+    
+    _MITRE_TECHNIQUE_TO_SUBTECHNIQUE = {
+        tech: sorted(list(subs))
+        for tech, subs in _MITRE_TECHNIQUE_TO_SUBTECHNIQUE.items()
+    }
+    # print(f"_MITRE_TACTIC_TO_TECHNIQUE {_MITRE_TACTIC_TO_TECHNIQUE}")
+    # print(f"_MITRE_TECHNIQUE_TO_SUBTECHNIQUE {_MITRE_TECHNIQUE_TO_SUBTECHNIQUE}")
+    
+
 """ generate attack hypothesis based on security event"""
-def llm_call_1(security_event:str):
+def llm_call_1(security_event:dict):
     system_prompt = "You are a cybersecurity expert."
     user_prompt = f"""
                 Analyze this security event and identify the MITRE ATT&CK technique or possible list of MITRE ATT&CK techniques. NO explanation, No reasoning.
@@ -61,47 +112,80 @@ def llm_call_1(security_event:str):
 
                 """
     print(f"prompt={user_prompt}")
-    response = llm.invoke([SystemMessage(system_prompt), HumanMessage(user_prompt)])
+    response = llm1.invoke([SystemMessage(system_prompt), HumanMessage(user_prompt)])
     print(f"llm response {response}")
-    print(f"Agent Response={response.content}")
-
-    return response.content
+    attack_hypoths= json.loads(response.content)
+    print(f"Agent Response={attack_hypoths}")
+    return attack_hypoths
 
 """ validate list of attack hypotheis """    
 def validate_attack_hypoths(attack_hypoths:dict):
-    valid_attack_hypoths = attack_hypoths
-    return valid_attack_hypoths
+    # Extract base technique ID (remove everything after '.')
+    technique_id = attack_hypoths["technique_id"].split('.')[0]
+    if attack_hypoths["tactic_id"] in _MITRE_TACTIC_TO_TECHNIQUE:
+        if technique_id in _MITRE_TECHNIQUE_TO_SUBTECHNIQUE:
+            return attack_hypoths
+
+def compute_ssim(securty_event:dict, attack_hypoths:dict):
+    return 0.33
+
+def compute_sagr(attack_hypoths:dict):
+    return 0.88
+
+def compute_sevd(securty_event:dict, attack_hypoths:dict):
+    evidence=["encoded_command"]
+    return (0.8, evidence)
+
 
 """ compute confidence factor for each attack and return highest one """
-def compute_confidence_factor(attack_hypoths:dict):
-    hcs_attack_hypoths = attack_hypoths
-    return hcs_attack_hypoths
+def compute_confidence_factor(securty_event:dict, attack_hypoths:dict):
+    sevd= compute_sevd(securty_event=securty_event, attack_hypoths=attack_hypoths)
+    confidence= (_ALPHA * compute_ssim(securty_event=securty_event,attack_hypoths=attack_hypoths)) 
+    + (_BETA * compute_sagr(attack_hypoths=attack_hypoths)) 
+    + (_GAMMA * sevd[0])
+    evidence= sevd[1]
+    hsc_attack_hypoths = (attack_hypoths, confidence, evidence)
+    #print(hsc_attack_hypoths)
+    return hsc_attack_hypoths
 
 """ generate explanation based on facts"""
-def llm_call_2(security_event:str, attack_hypoths:dict):
-    confidence=0.89
-    evidence=["encoded_command"]
+def llm_call_2(security_event:dict, hsc_attack_hypoths:tuple):
+    attack_hypoths= hsc_attack_hypoths[0]
+    confidence= hsc_attack_hypoths[1]
+    evidence= hsc_attack_hypoths[2]
 
     system_prompt = "You are a cybersecurity expert."
     user_prompt = f""" 
                    Generate human readable explanation using below given facts. The explanation not more than 100 words. Make sure that explanation understandable by security operations team.
                    security event = {str(security_event)}
-                   MITRE ATT&CK hypotheis = {attack_hypoths} 
-                   confidence score based on security event evaluation= {confidence}
-                   list of activity evidence = {evidence}
+                   MITRE ATT&CK hypothesis = {attack_hypoths} 
+                   confidence score in % based on security event evaluation= {confidence}
+                   list of activities as evidence = {evidence}
                 """
     print(f"prompt={user_prompt}")
-    response = llm.invoke([SystemMessage(system_prompt), HumanMessage(user_prompt)])
+    response = llm2.invoke([SystemMessage(system_prompt), HumanMessage(user_prompt)])
     print(f"llm response=\n{response}")
     print(f"Agent Response=\n{response.content}")
     return ""
 
-
-if __name__ == "__main__":
-    event= """{"@timestamp":"2026-05-03T03:29:51.000Z","event":{"id":"evt-8939bc01547de8402cedb0019c84e852","kind":"alert","category":["host","process","intrusion_detection"],"type":["process_creation","discovery","reconnaissance"],"severity":5,"action":"process_execution","enriched_at":"2026-05-03T03:30:26.000Z","enrichment_sources":["caldera","asset_db"]},"network":{"protocol":"tcp","transport":"tcp","direction":"egress","packets":1,"bytes":60},"source":{"ip":"10.0.2.15","port":2827,"address":"10.0.2.15","geo_ip":{"country_iso_code":"PRIVATE","country_name":"Private/RFC1918","location_type":"private","is_private":true},"asset":{"asset_type":"workstation","criticality":"HIGH","owner":"CORP\\Terminaluser","hostname":"TLPORT-PC-11","os":"Windows 10","location":"inside_network"}},"destination":{"ip":"10.0.2.15","port":80,"address":"10.0.2.15","geo_ip":{"country_iso_code":"PRIVATE","country_name":"Private/RFC1918","location_type":"private","is_private":true},"asset":{"asset_type":"workstation","criticality":"HIGH","is_external":false,"owner":"CORP\\Terminaluser","hostname":"TLPORT-PC-11"}},"tcp":{"flags":"SYN","seq":0,"window":512,"mss":1460},"process":{"pid":3728,"ppid":3312,"name":"powershell.exe","command_line":"powershell -EncodedCommand AHkAIABVAG4AZABlHDJKNLKJNK879JCNN","executor":"psh","user":"CORP\\Terminaluser","host":"TLPORT-PC-11","platform":"windows"}}"""
+def end_to_end_call():
+    build_attack_dictionaries()
+    event= r"""{"@timestamp":"2026-05-03T03:29:51.000Z","event":{"id":"evt-8939bc01547de8402cedb0019c84e852","kind":"alert","category":["host","process","intrusion_detection"],"type":["process_creation","discovery","reconnaissance"],"severity":5,"action":"process_execution","enriched_at":"2026-05-03T03:30:26.000Z","enrichment_sources":["caldera","asset_db"]},"network":{"protocol":"tcp","transport":"tcp","direction":"egress","packets":1,"bytes":60},"source":{"ip":"10.0.2.15","port":2827,"address":"10.0.2.15","geo_ip":{"country_iso_code":"PRIVATE","country_name":"Private/RFC1918","location_type":"private","is_private":true},"asset":{"asset_type":"workstation","criticality":"HIGH","owner":"CORP\\Terminaluser","hostname":"TLPORT-PC-11","os":"Windows 10","location":"inside_network"}},"destination":{"ip":"10.0.2.15","port":80,"address":"10.0.2.15","geo_ip":{"country_iso_code":"PRIVATE","country_name":"Private/RFC1918","location_type":"private","is_private":true},"asset":{"asset_type":"workstation","criticality":"HIGH","is_external":false,"owner":"CORP\\Terminaluser","hostname":"TLPORT-PC-11"}},"tcp":{"flags":"SYN","seq":0,"window":512,"mss":1460},"process":{"pid":3728,"ppid":3312,"name":"powershell.exe","command_line":"powershell -EncodedCommand AHkAIABVAG4AZABlHDJKNLKJNK879JCNN","executor":"psh","user":"CORP\\Terminaluser","host":"TLPORT-PC-11","platform":"windows"}}"""
     #print(event)
     attack_hypoths= llm_call_1(security_event=event)
-    validate_attack_hypoths= validate_attack_hypoths(attack_hypoths=attack_hypoths)
-    hcs_attack_hypoths= compute_confidence_factor(attack_hypoths=validate_attack_hypoths)
-    final_response= llm_call_2(security_event=event, attack_hypoths=hcs_attack_hypoths)
+    if attack_hypoths is None:
+        print(f"llm  attack_hypoths not fond {attack_hypoths} !!")
+        return
+    valid_attack_hypths= validate_attack_hypoths(attack_hypoths=attack_hypoths)
+    if valid_attack_hypths is None:
+        print(f"validate_attack_hypoths not fond {valid_attack_hypths} !!")
+        return
+    
+    hsc_attack_hypoths= compute_confidence_factor(securty_event=event,attack_hypoths=valid_attack_hypths)
+    final_response= llm_call_2(security_event=event, hsc_attack_hypoths=hsc_attack_hypoths)
 
+
+if __name__ == "__main__":
+    end_to_end_call()
+
+    
