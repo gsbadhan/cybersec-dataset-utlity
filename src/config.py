@@ -124,14 +124,13 @@ OUTPUT = {
     "darpa_events": os.path.join(BASE_DIR, ""),
     "splunk_detection_events": os.path.join(BASE_DIR,"processed/splunk_detections.jsonl"),
     "snort_rules": os.path.join(BASE_DIR,"processed/snort_rules.jsonl"),
-    "unified_dataset": os.path.join(BASE_DIR, "unified/dataset.json")
+    "llm_train_dataset": os.path.join(BASE_DIR, "processed/llm_train_file.jsonl"),
 }
 
 # =========================
 # ENSURE OUTPUT DIRECTORIES EXIST
 # =========================
 os.makedirs(OUTPUT["processed_dir"], exist_ok=True)
-os.makedirs(os.path.dirname(OUTPUT["unified_dataset"]), exist_ok=True)
 
 # =========================
 # MITRE / LABEL MAPPING

@@ -18,6 +18,7 @@ def parse_detection(path):
         "security_domain": tags.get("security_domain"),
         "references": data.get("references", []),
         "activity_type": "detection_rule",
+        "asset_type": data.get("asset_type"),
         "source": "splunk"
     }
 

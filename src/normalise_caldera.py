@@ -2,6 +2,9 @@
 
 import json
 from config import CALDERA, OUTPUT
+import csv
+
+_MITRE_TACTICNAME_TO_TACTICID= dict()
 
 ## HOST to IP mapping
 HOST_TO_IP ={
@@ -31,6 +34,18 @@ TACTIC_TO_CATEGORY = {
     "impact": "execution"
 }
 
+def build_attack_dictionaries():
+    global _MITRE_TACTICNAME_TO_TACTICID
+    mitre_file= "/Users/gurpreetsingh/Downloads/cybersec-dataset/cybersec-dataset-utlity/mitre_tactic_technique.csv"
+    with open(mitre_file, 'r') as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            tactic_name = row['tactic_name']
+            tactic_id = row['tactic_id']
+            _MITRE_TACTICNAME_TO_TACTICID[tactic_name]= tactic_id
+
+
+""" parse raw events from path config.CALDERA.raw_event_json """
 def parse_caldera_flat(file_path):
     with open(file_path, "r") as f:
         data = json.load(f)
@@ -38,7 +53,17 @@ def parse_caldera_flat(file_path):
     events = []
 
     for item in data:
-        event = {
+         
+         technique_ids= item.get("attack_metadata", {}).get("technique_id").split('.')
+         technique_id= technique_ids[0] 
+         sub_technique_id= item.get("attack_metadata", {}).get("technique_id") if len(technique_ids)>1 else ""
+
+         technique_names= item.get("attack_metadata", {}).get("technique_name").split(':')
+         technique_name= technique_names[0]
+         sub_technique_name= item.get("attack_metadata", {}).get("technique_name") if len(technique_names)>1 else ""
+
+
+         event = {
             "event_id": item.get("ability_metadata", {}).get("ability_id"),
 
             "timestamp": item.get("finished_timestamp"),
@@ -56,17 +81,17 @@ def parse_caldera_flat(file_path):
             "exit_code": item.get("status", -1),
             "status": "success" if item.get("status") == 0 else "failed",
 
-            "technique_id": item.get("attack_metadata", {}).get("technique_id"),
-            "technique_name": item.get("attack_metadata", {}).get("technique_name"),
-            "tactic": item.get("attack_metadata", {}).get("tactic"),
-
+            "technique_id": technique_id,
+            "technique_name": technique_name,
+            "tactic_name": item.get("attack_metadata", {}).get("tactic"),
+            "tactic_id": _MITRE_TACTICNAME_TO_TACTICID[item.get("attack_metadata", {}).get("tactic")] if item.get("attack_metadata", {}).get("tactic") in _MITRE_TACTICNAME_TO_TACTICID else "NA",
+            "sub_technique_id": sub_technique_id,
+            "sub_technique_name": sub_technique_name,
             "operation_name": item.get("operation_metadata", {}).get("operation_name"),
             "adversary": item.get("operation_metadata", {}).get("operation_adversary"),
-
             "source": "caldera"
         }
-
-        events.append(event)
+         events.append(event)
 
     return events
 
@@ -86,7 +111,7 @@ def normalize_event(e):
 
 ## classification or enrichment
 def classify_event(e):
-    tactic = (e["tactic"] or "").lower()
+    tactic = (e["tactic_name"] or "").lower()
     host = (e["host"] or "").lower()
     e["category"] = TACTIC_TO_CATEGORY.get(tactic,"unknown")
     e["src_ip"] = HOST_TO_IP.get("src")
@@ -101,6 +126,7 @@ def save_events(events, path):
 
 
 ### 
+build_attack_dictionaries()
 events = parse_caldera_flat(CALDERA.get("raw_event_json"))
 events = [normalize_event(e) for e in events]
 events = [classify_event(e) for e in events]

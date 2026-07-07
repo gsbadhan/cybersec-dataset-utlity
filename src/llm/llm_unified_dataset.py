@@ -2,12 +2,11 @@ import sys
 sys.path.insert(0,"./src")
 import json
 import os
+from config import OUTPUT
 
-llm_train_file="/Users/gurpreetsingh/Downloads/cybersec-dataset/llm_train_file.jsonl"
-
-caledra_file="/Users/gurpreetsingh/Downloads/cybersec-dataset/caldera-events/merged_may032026-caldera-test-001.json" 
-
-splunk_security_file="/Users/gurpreetsingh/Downloads/cybersec-dataset/processed/splunk_detections.jsonl"
+llm_train_file=OUTPUT.get("llm_train_dataset")
+caledra_file=OUTPUT.get("caldera_events")
+splunk_security_file=OUTPUT.get("splunk_detection_events")
 
 events_per_dataset=100;
 
@@ -26,7 +25,12 @@ def read_caldera(input_file,output_file):
             "activity_type": "command",
             "platform": row["platform"],
             "executor": row["executor"],
-            "technique_id": row["technique_id"]
+            "tactic_id": row["tactic_id"],
+            "tactic_name": row["tactic_name"],
+            "technique_id": row["technique_id"],
+            "technique_name": row["technique_name"],
+            "sub_technique_id": row["sub_technique_id"],
+            "sub_technique_name": row["sub_technique_name"]
         }
         buffer.append(log)
         if (len(buffer) % 100) ==0 and events_counter <=events_per_dataset:
@@ -80,4 +84,5 @@ def delete_file(file_path):
 ### run
 delete_file(file_path=llm_train_file)
 read_caldera(input_file=caledra_file, output_file=llm_train_file)
-read_splunk(input_file=splunk_security_file, output_file=llm_train_file)
+#read_splunk(input_file=splunk_security_file, output_file=llm_train_file)
+print("done..")
