@@ -170,7 +170,14 @@ def llm_call_2(security_event:dict, hsc_attack_hypoths:tuple):
 
 def end_to_end_call():
     build_attack_dictionaries()
-    event= r"""{"@timestamp":"2026-05-03T03:29:51.000Z","event":{"id":"evt-8939bc01547de8402cedb0019c84e852","kind":"alert","category":["host","process","intrusion_detection"],"type":["process_creation","discovery","reconnaissance"],"severity":5,"action":"process_execution","enriched_at":"2026-05-03T03:30:26.000Z","enrichment_sources":["caldera","asset_db"]},"network":{"protocol":"tcp","transport":"tcp","direction":"egress","packets":1,"bytes":60},"source":{"ip":"10.0.2.15","port":2827,"address":"10.0.2.15","geo_ip":{"country_iso_code":"PRIVATE","country_name":"Private/RFC1918","location_type":"private","is_private":true},"asset":{"asset_type":"workstation","criticality":"HIGH","owner":"CORP\\Terminaluser","hostname":"TLPORT-PC-11","os":"Windows 10","location":"inside_network"}},"destination":{"ip":"10.0.2.15","port":80,"address":"10.0.2.15","geo_ip":{"country_iso_code":"PRIVATE","country_name":"Private/RFC1918","location_type":"private","is_private":true},"asset":{"asset_type":"workstation","criticality":"HIGH","is_external":false,"owner":"CORP\\Terminaluser","hostname":"TLPORT-PC-11"}},"tcp":{"flags":"SYN","seq":0,"window":512,"mss":1460},"process":{"pid":3728,"ppid":3312,"name":"powershell.exe","command_line":"powershell -EncodedCommand AHkAIABVAG4AZABlHDJKNLKJNK879JCNN","executor":"psh","user":"CORP\\Terminaluser","host":"TLPORT-PC-11","platform":"windows"}}"""
+    event= r"""{"event": {"id": "61c162ed-52c9-4c8c-a32d-5edb90f6f34a", "timestamp": "2026-05-03T03:30:49Z", "type": ["endpoint", "process"], "category": ["host", "process"], "enrichment_sources": ["mitreTTP", "assetDB", "geoIP"], "source": "caldera"}, "network": {"protocol": "", "transport":
+"", "direction": "", "packets": 0, "bytes": 0}, "source": {"ip": "192.168.2.36", "port": 0, "address": "", "geo_ip": {"country_iso_code": "IND", "country_name": "India",
+"state": "Delhi", "city": "Delhi", "is_private": true, "timezone": "IST"}, "asset": {"asset_type": "workstation", "criticality": "high", "owner": "", "hostname": "mac", "
+os": "mac", "location": "", "is_external": false}}, "destination": {"ip": "10.0.2.15", "port": 0, "address": "", "geo_ip": {"country_iso_code": "IND", "country_name": "In
+dia", "state": "Delhi", "city": "Delhi", "is_private": true, "timezone": "IST"}, "asset": {"asset_type": "workstation", "criticality": "high", "owner": "", "hostname": "u
+buntu-vb", "os": "linux", "location": "", "is_external": false}}, "host": {"user": "ubuntu", "hostname": "ubuntu-vb", "group": "red", "platform": "linux", "architecture":
+ "amd64"}, "process": {"pid": 1994, "ppid": 0, "name": "mkdir", "command_line": "mkdir -p staged && echo $PWD/staged", "executor": "sh", "user": "ubuntu", "host": "ubuntu
+-vb", "exit_code": -1, "status": "success"}"""
     #print(event)
     attack_hypoths= llm_call_1(security_event=event)
     if attack_hypoths is None:
