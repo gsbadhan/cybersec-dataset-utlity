@@ -90,7 +90,7 @@ SNORT = {
 # CALDERA
 # =========================
 CALDERA = {
-    "raw_event_json": os.path.join(CALDERA_BASE_DIR,"may032026-caldera-test-001.json")
+    "raw_event_json": os.path.join(CALDERA_BASE_DIR,"raw_events.json")
 }
 
 # =========================

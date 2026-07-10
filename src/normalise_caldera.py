@@ -6,6 +6,8 @@ from mapping import extract_process_name, init_mappings,MITRE_TECHNIQUEID_TO_TEC
 from security_event import SecurityEvent, Event, Network, Source, Destination, Mitre, Host, Process, Asset, GeoIP
 import uuid
 
+tactics= set()
+
 """ parse raw events from path config.CALDERA.raw_event_json """
 def parse_caldera_flat(file_path):
     with open(file_path, "r") as f:
@@ -14,6 +16,7 @@ def parse_caldera_flat(file_path):
     events = []
 
     for item in data:
+         tactics.add(item.get("attack_metadata", {}).get("tactic"))
          technique_ids= item.get("attack_metadata", {}).get("technique_id").split('.')
          technique_id= technique_ids[0] 
          sub_technique_id= item.get("attack_metadata", {}).get("technique_id") if len(technique_ids)>1 else ""
@@ -78,10 +81,12 @@ def save_events(events, path):
         json.dump(events_dict, f, default=str)
 
 
-### 
+###
+# merge json files jq -s 'add' *.json > raw_events.json 
 init_mappings()
 events = parse_caldera_flat(CALDERA.get("raw_event_json"))
 print(events[0])
 print (len(events))
 save_events(events=events, path=OUTPUT.get("caldera_events"))
+print(f"tactics= {tactics}")
 
