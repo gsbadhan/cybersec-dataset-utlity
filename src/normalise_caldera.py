@@ -6,6 +6,8 @@ from mapping import extract_process_name, init_mappings,MITRE_TECHNIQUEID_TO_TEC
 from security_event import SecurityEvent, Event, Network, Source, Destination, Mitre, Host, Process, Asset, GeoIP
 import uuid
 
+## tactics= {'credential-access', 'execution', 'command-and-control', 'collection', 'defense-evasion', 'multiple', 'impact', 'exfiltration', 'lateral-movement', 'discovery'}
+
 tactics= set()
 
 """ parse raw events from path config.CALDERA.raw_event_json """
@@ -82,7 +84,7 @@ def save_events(events, path):
 
 
 ###
-# merge json files jq -s 'add' *.json > raw_events.json 
+# merge json files:  jq -s 'add' *.json > raw_events.json 
 init_mappings()
 events = parse_caldera_flat(CALDERA.get("raw_event_json"))
 print(events[0])

@@ -8,8 +8,8 @@ class GeoIP(BaseModel):
     state: str = "Delhi"
     city: str = "Delhi"
     is_private: bool = True
-    longitude: Optional[float] = None
-    latitude: Optional[float] = None
+    longitude: Optional[float] = 28.6687
+    latitude: Optional[float] = 77.2304
     timezone: str = "IST" # IST
 
 
