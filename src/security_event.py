@@ -99,6 +99,11 @@ class Event(BaseModel):
     enrichment_sources: List[str] = None #["geoip","asset_db"]
     source:str
 
+class Suspicious(BaseModel):
+    commands: List[str]= None # ['find', 'hydra', 'sudo']
+    processes: List[str]= None # ['sc.exe', 'cmd.exe']
+    users: List[str]= None # ['johan', 'david van']
+    IPs: List[str]= None # ['192.167.6.189']
 
 class SecurityEvent(BaseModel):
     event:Event = Field(default_factory=Event)
@@ -107,6 +112,7 @@ class SecurityEvent(BaseModel):
     destination: Destination = Field(default_factory=Destination)
     host:Host = Field(default_factory=Host)
     process:Process= Field(default_factory=Process)
+    suspicious:Suspicious= Field(default_factory=Suspicious)
     mitre:Optional[List[Mitre]] = Field(default_factory=list)
 
     def to_dict(self) -> dict:

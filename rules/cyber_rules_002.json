@@ -2,7 +2,7 @@
     {
         "rule_id": "rl-1001",
         "rule_type": "process",
-        "condition": "contains(command, 'sshpass') or contains(command, 'hydra') or contains(command, 'sudo_bruteforce')",
+        "condition": "contains(command, 'sshpass') | contains(command, 'hydra') | contains(command, 'sudo_bruteforce')",
         "description": "Detects brute force credential attacks using SSH password guessing or sudo brute forcing",
         "platform": "linux",
         "activity_type": "host",
@@ -12,7 +12,7 @@
     {
         "rule_id": "rl-1002",
         "rule_type": "process",
-        "condition": "contains(command, 'credstuff') and contains(command, 'sshpass') and contains(command, 'localhost')",
+        "condition": "contains(command, 'credstuff') & contains(command, 'sshpass')",
         "description": "Detects credential stuffing attacks using password dumps",
         "platform": "linux",
         "activity_type": "host",
@@ -22,7 +22,7 @@
     {
         "rule_id": "rl-2001",
         "rule_type": "process",
-        "condition": "contains(command, 'EncodedCommand') or contains(command, '-enc') and contains(command, 'powershell')",
+        "condition": "contains(command, 'EncodedCommand') | (contains(command, '-enc') & contains(command, 'powershell'))",
         "description": "Detects obfuscated PowerShell commands using base64 encoding",
         "platform": "windows",
         "activity_type": "host",
@@ -30,19 +30,9 @@
         "severity": 0.85
     },
     {
-        "rule_id": "rl-2002",
-        "rule_type": "process",
-        "condition": "regex_match(command, '[A-Za-z0-9+\\/]{40,}={0,2}') and contains(command, 'powershell')",
-        "description": "Detects potential base64 encoded PowerShell command execution",
-        "platform": "windows",
-        "activity_type": "host",
-        "technique_id": "T1027",
-        "severity": 0.75
-    },
-    {
         "rule_id": "rl-3001",
         "rule_type": "process",
-        "condition": "contains(command, 'lsass') and (contains(command, 'procdump') or contains(command, 'rundll32') or contains(command, 'comsvcs'))",
+        "condition": "contains(command, 'lsass') & (contains(command, 'procdump') | contains(command, 'rundll32') | contains(command, 'comsvcs'))",
         "description": "Detects LSASS memory dumping attempts using various tools",
         "platform": "windows",
         "activity_type": "host",
@@ -50,39 +40,9 @@
         "severity": 0.90
     },
     {
-        "rule_id": "rl-3002",
-        "rule_type": "process",
-        "condition": "contains(command, 'reg export') and (contains(command, 'sam') or contains(command, 'system') or contains(command, 'security'))",
-        "description": "Detects registry export of SAM/SECURITY/SYSTEM hives for credential dumping",
-        "platform": "windows",
-        "activity_type": "host",
-        "technique_id": "T1003.002",
-        "severity": 0.88
-    },
-    {
-        "rule_id": "rl-3003",
-        "rule_type": "process",
-        "condition": "contains(command, 'MiniDump') and contains(command, 'lsass')",
-        "description": "Detects LSASS minidump creation using comsvcs.dll",
-        "platform": "windows",
-        "activity_type": "host",
-        "technique_id": "T1003.001",
-        "severity": 0.90
-    },
-    {
-        "rule_id": "rl-3004",
-        "rule_type": "process",
-        "condition": "contains(command, 'NPPSpy') or contains(command, 'NetworkProvider') and contains(command, 'PROVIDERORDER')",
-        "description": "Detects NPPSpy credential dumping via network provider manipulation",
-        "platform": "windows",
-        "activity_type": "host",
-        "technique_id": "T1003",
-        "severity": 0.88
-    },
-    {
         "rule_id": "rl-4001",
         "rule_type": "process",
-        "condition": "contains(command, 'wget') or contains(command, 'curl')",
+        "condition": "contains(command, 'wget') | contains(command, 'curl')",
         "description": "Detects file download from remote sources",
         "platform": "linux",
         "activity_type": "host",
@@ -92,7 +52,7 @@
     {
         "rule_id": "rl-4002",
         "rule_type": "process",
-        "condition": "contains(command, 'useradd') and contains(command, 'openssl passwd')",
+        "condition": "contains(command, 'useradd') & contains(command, 'openssl passwd')",
         "description": "Detects user creation with password generation for persistence",
         "platform": "linux",
         "activity_type": "host",
@@ -102,7 +62,7 @@
     {
         "rule_id": "rl-4003",
         "rule_type": "process",
-        "condition": "contains(command, 'su') and contains(command, 'curl') and contains(command, 'sudo_bruteforce')",
+        "condition": "contains(command, 'su') & contains(command, 'curl') & contains(command, 'sudo_bruteforce')",
         "description": "Detects privilege escalation attempt via sudo brute forcing",
         "platform": "linux",
         "activity_type": "host",
@@ -112,7 +72,7 @@
     {
         "rule_id": "rl-5001",
         "rule_type": "process",
-        "condition": "contains(command, 'hping3') and (contains(command, '--flood') or contains(command, '--udp') or contains(command, '-S'))",
+        "condition": "contains(command, 'hping3') & (contains(command, '--flood') | contains(command, '--udp') | contains(command, '-S'))",
         "description": "Detects network flood attacks using hping3",
         "platform": "linux",
         "activity_type": "host",
@@ -130,19 +90,9 @@
         "severity": 0.80
     },
     {
-        "rule_id": "rl-5003",
-        "rule_type": "process",
-        "condition": "contains(command, 'timeout') and contains(command, 'hping3') and contains(command, '--flood')",
-        "description": "Detects timed DoS flood attacks",
-        "platform": "linux",
-        "activity_type": "host",
-        "technique_id": "T1498.001",
-        "severity": 0.85
-    },
-    {
         "rule_id": "rl-6001",
         "rule_type": "process",
-        "condition": "contains(command, 'find / -name') and (contains(command, '.wav') or contains(command, '.png') or contains(command, '.yml'))",
+        "condition": "contains(command, 'find / -name') & (contains(command, '.wav') | contains(command, '.png') | contains(command, '.yml'))",
         "description": "Detects file discovery patterns searching for specific file extensions",
         "platform": "linux",
         "activity_type": "host",
@@ -152,7 +102,7 @@
     {
         "rule_id": "rl-6002",
         "rule_type": "process",
-        "condition": "contains(command, 'Get-ChildItem') and contains(command, 'C:\\\\Users') and contains(command, '-Recurse')",
+        "condition": "contains(command, 'Get-ChildItem') & contains(command, 'C:\\\\Users') & contains(command, '-Recurse')",
         "description": "Detects recursive directory listing in user directories on Windows",
         "platform": "windows",
         "activity_type": "host",
@@ -160,44 +110,14 @@
         "severity": 0.60
     },
     {
-        "rule_id": "rl-6003",
-        "rule_type": "process",
-        "condition": "contains(command, 'dir /s') and (contains(command, 'C:\\\\') or contains(command, '%userprofile%'))",
-        "description": "Detects directory enumeration using dir command with recursion",
-        "platform": "windows",
-        "activity_type": "host",
-        "technique_id": "T1083",
-        "severity": 0.55
-    },
-    {
         "rule_id": "rl-7001",
         "rule_type": "process",
-        "condition": "contains(command, 'reg add') and (contains(command, 'HKLM') or contains(command, 'HKCU')) and contains(command, '/f')",
+        "condition": "contains(command, 'reg add') & (contains(command, 'HKLM') | contains(command, 'HKCU'))",
         "description": "Detects registry modification attempts using reg.exe",
         "platform": "windows",
         "activity_type": "host",
         "technique_id": "T1112",
         "severity": 0.70
-    },
-    {
-        "rule_id": "rl-7002",
-        "rule_type": "process",
-        "condition": "contains(command, 'Set-ItemProperty') and contains(command, 'Registry') and contains(command, 'HKLM')",
-        "description": "Detects registry modification using PowerShell",
-        "platform": "windows",
-        "activity_type": "host",
-        "technique_id": "T1112",
-        "severity": 0.70
-    },
-    {
-        "rule_id": "rl-7003",
-        "rule_type": "process",
-        "condition": "contains(command, 'New-ItemProperty') and contains(command, 'HKLM')",
-        "description": "Detects new registry value creation using PowerShell",
-        "platform": "windows",
-        "activity_type": "host",
-        "technique_id": "T1112",
-        "severity": 0.65
     },
     {
         "rule_id": "rl-8001",
@@ -208,16 +128,6 @@
         "activity_type": "host",
         "technique_id": "T1552.004",
         "severity": 0.80
-    },
-    {
-        "rule_id": "rl-8002",
-        "rule_type": "process",
-        "condition": "contains(command, 'authorized_keys') and contains(command, 'cat') and contains(command, '.ssh')",
-        "description": "Detects SSH authorized_keys file modification for persistence",
-        "platform": "linux",
-        "activity_type": "host",
-        "technique_id": "T1098.004",
-        "severity": 0.85
     },
     {
         "rule_id": "rl-9001",
@@ -232,7 +142,7 @@
     {
         "rule_id": "rl-9002",
         "rule_type": "process",
-        "condition": "contains(command, 'Get-Process') or contains(command, 'get-process')",
+        "condition": "contains(command, 'Get-Process') | contains(command, 'get-process')",
         "description": "Detects process enumeration using PowerShell",
         "platform": "windows",
         "activity_type": "host",
@@ -240,19 +150,9 @@
         "severity": 0.50
     },
     {
-        "rule_id": "rl-9003",
-        "rule_type": "process",
-        "condition": "contains(command, 'ps -ef') or contains(command, 'ps aux')",
-        "description": "Detects process listing on Linux systems",
-        "platform": "linux",
-        "activity_type": "host",
-        "technique_id": "T1057",
-        "severity": 0.45
-    },
-    {
         "rule_id": "rl-10001",
         "rule_type": "process",
-        "condition": "contains(command, 'curl -F') and contains(command, 'file/upload')",
+        "condition": "contains(command, 'curl -F') & contains(command, 'file/upload')",
         "description": "Detects data exfiltration via HTTP POST with file upload",
         "platform": "linux",
         "activity_type": "network",
@@ -260,59 +160,9 @@
         "severity": 0.85
     },
     {
-        "rule_id": "rl-10002",
-        "rule_type": "process",
-        "condition": "contains(command, 'Invoke-WebRequest') and contains(command, '-Method POST') and contains(command, '-Body')",
-        "description": "Detects data exfiltration using PowerShell Invoke-WebRequest",
-        "platform": "windows",
-        "activity_type": "network",
-        "technique_id": "T1041",
-        "severity": 0.80
-    },
-    {
-        "rule_id": "rl-10003",
-        "rule_type": "process",
-        "condition": "contains(command, 'tar -zcf') and contains(command, 'staged')",
-        "description": "Detects staging of data into compressed archive for exfiltration",
-        "platform": "linux",
-        "activity_type": "host",
-        "technique_id": "T1560.001",
-        "severity": 0.75
-    },
-    {
-        "rule_id": "rl-10004",
-        "rule_type": "process",
-        "condition": "contains(command, 'Compress-Archive') and contains(command, 'staged')",
-        "description": "Detects staging of data into compressed archive using PowerShell",
-        "platform": "windows",
-        "activity_type": "host",
-        "technique_id": "T1560.001",
-        "severity": 0.75
-    },
-    {
-        "rule_id": "rl-11001",
-        "rule_type": "process",
-        "condition": "contains(command, 'systeminfo') or contains(command, 'hostname')",
-        "description": "Detects system information discovery commands",
-        "platform": "windows",
-        "activity_type": "host",
-        "technique_id": "T1082",
-        "severity": 0.45
-    },
-    {
-        "rule_id": "rl-11002",
-        "rule_type": "process",
-        "condition": "contains(command, 'wmic') and (contains(command, 'cpu') or contains(command, 'baseboard') or contains(command, 'bios'))",
-        "description": "Detects hardware information discovery using WMIC",
-        "platform": "windows",
-        "activity_type": "host",
-        "technique_id": "T1082",
-        "severity": 0.50
-    },
-    {
         "rule_id": "rl-11003",
         "rule_type": "process",
-        "condition": "contains(command, 'whoami') and not contains(command, 'whoami.exe /all')",
+        "condition": "contains(command, 'whoami') & (not contains(command, 'whoami.exe /all'))",
         "description": "Detects user discovery using whoami command",
         "platform": "linux",
         "activity_type": "host",
@@ -322,7 +172,7 @@
     {
         "rule_id": "rl-11004",
         "rule_type": "process",
-        "condition": "contains(command, 'ifconfig') or contains(command, 'ip addr')",
+        "condition": "contains(command, 'ifconfig') | contains(command, 'ip addr')",
         "description": "Detects network configuration discovery on Linux",
         "platform": "linux",
         "activity_type": "host",
@@ -332,7 +182,7 @@
     {
         "rule_id": "rl-11005",
         "rule_type": "process",
-        "condition": "contains(command, 'ipconfig') and platform == 'windows'",
+        "condition": "contains(command, 'ipconfig') & (platform == 'windows')",
         "description": "Detects network configuration discovery on Windows",
         "platform": "windows",
         "activity_type": "host",
@@ -350,44 +200,14 @@
         "severity": 0.85
     },
     {
-        "rule_id": "rl-12002",
-        "rule_type": "process",
-        "condition": "contains(command, 'Connect-VIServer') and contains(command, 'Start-VMHostService')",
-        "description": "Detects ESXi SSH service enablement via PowerCLI",
-        "platform": "windows",
-        "activity_type": "host",
-        "technique_id": "T1021.004",
-        "severity": 0.80
-    },
-    {
-        "rule_id": "rl-12003",
-        "rule_type": "process",
-        "condition": "contains(command, 'plink.exe') and contains(command, '-ssh')",
-        "description": "Detects SSH connection attempts using Plink for lateral movement",
-        "platform": "windows",
-        "activity_type": "network",
-        "technique_id": "T1021.004",
-        "severity": 0.75
-    },
-    {
         "rule_id": "rl-13001",
         "rule_type": "process",
-        "condition": "contains(command, 'reg add') and contains(command, 'Run')",
+        "condition": "contains(command, 'reg add') & contains(command, 'Run')",
         "description": "Detects persistence via Run registry key modification",
         "platform": "windows",
         "activity_type": "host",
         "technique_id": "T1547.001",
         "severity": 0.75
-    },
-    {
-        "rule_id": "rl-13002",
-        "rule_type": "process",
-        "condition": "contains(command, 'Winlogon') and contains(command, 'Shell')",
-        "description": "Detects Winlogon shell modification for persistence",
-        "platform": "windows",
-        "activity_type": "host",
-        "technique_id": "T1547.004",
-        "severity": 0.80
     },
     {
         "rule_id": "rl-14001",
@@ -400,29 +220,9 @@
         "severity": 0.50
     },
     {
-        "rule_id": "rl-15001",
-        "rule_type": "process",
-        "condition": "contains(command, 'pip install') and contains(command, 'stormssh')",
-        "description": "Detects installation of SSH configuration parsing tools",
-        "platform": "linux",
-        "activity_type": "host",
-        "technique_id": "T1005",
-        "severity": 0.60
-    },
-    {
-        "rule_id": "rl-15002",
-        "rule_type": "process",
-        "condition": "contains(command, 'which') and (contains(command, 'chrome') or contains(command, 'python') or contains(command, 'go'))",
-        "description": "Detects software discovery using which command",
-        "platform": "linux",
-        "activity_type": "host",
-        "technique_id": "T1518",
-        "severity": 0.45
-    },
-    {
         "rule_id": "rl-16001",
         "rule_type": "process",
-        "condition": "contains(command, 'bitsadmin') and (contains(command, '/addfile') or contains(command, '/setnotifycmdline'))",
+        "condition": "contains(command, 'bitsadmin') & (contains(command, '/addfile') | contains(command, '/setnotifycmdline'))",
         "description": "Detects BITS job creation for download/execution",
         "platform": "windows",
         "activity_type": "host",
@@ -432,7 +232,7 @@
     {
         "rule_id": "rl-17001",
         "rule_type": "process",
-        "condition": "contains(command, 'mkdir') and contains(command, 'staged') or contains(command, 'art-staging')",
+        "condition": "(contains(command, 'mkdir') & contains(command, 'staged')) | contains(command, 'art-staging')",
         "description": "Detects creation of staging directory for exfiltration",
         "platform": "linux",
         "activity_type": "host",
@@ -440,19 +240,9 @@
         "severity": 0.60
     },
     {
-        "rule_id": "rl-17002",
-        "rule_type": "process",
-        "condition": "contains(command, 'New-Item') and contains(command, 'staged') and contains(command, 'directory')",
-        "description": "Detects creation of staging directory using PowerShell",
-        "platform": "windows",
-        "activity_type": "host",
-        "technique_id": "T1074.001",
-        "severity": 0.60
-    },
-    {
         "rule_id": "rl-18001",
         "rule_type": "process",
-        "condition": "contains(command, 'netstat -anto') or contains(command, 'Get-NetTCPConnection')",
+        "condition": "contains(command, 'netstat -anto') | contains(command, 'Get-NetTCPConnection')",
         "description": "Detects network connections discovery",
         "platform": "windows",
         "activity_type": "host",
@@ -462,7 +252,7 @@
     {
         "rule_id": "rl-18002",
         "rule_type": "process",
-        "condition": "contains(command, 'netstat') and not contains(command, 'netstat -anto')",
+        "condition": "contains(command, 'netstat') & (not contains(command, 'netstat -anto'))",
         "description": "Detects network connections discovery on Linux",
         "platform": "linux",
         "activity_type": "host",
@@ -472,7 +262,7 @@
     {
         "rule_id": "rl-19001",
         "rule_type": "process",
-        "condition": "contains(command, 'Get-WmiObject') and (contains(command, 'AntiVirusProduct') or contains(command, 'SecurityCenter'))",
+        "condition": "contains(command, 'Get-WmiObject') & (contains(command, 'AntiVirusProduct') | contains(command, 'SecurityCenter'))",
         "description": "Detects security software discovery using WMI",
         "platform": "windows",
         "activity_type": "host",
@@ -480,79 +270,19 @@
         "severity": 0.60
     },
     {
-        "rule_id": "rl-19002",
-        "rule_type": "process",
-        "condition": "contains(command, 'Get-SmbShare')",
-        "description": "Detects network share discovery",
-        "platform": "windows",
-        "activity_type": "host",
-        "technique_id": "T1135",
-        "severity": 0.55
-    },
-    {
-        "rule_id": "rl-19003",
-        "rule_type": "process",
-        "condition": "contains(command, 'gpresult /R')",
-        "description": "Detects permission and security groups discovery",
-        "platform": "windows",
-        "activity_type": "host",
-        "technique_id": "T1069.001",
-        "severity": 0.50
-    },
-    {
         "rule_id": "rl-20001",
         "rule_type": "process",
-        "condition": "contains(command, 'powercat') or contains(command, 'dnscat2') or contains(command, 'Invoke-PowerShellIcmp')",
-        "description": "Detects alternative C2 channel establishment (Powercat, DNS, ICMP)",
+        "condition": "contains(command, 'powercat') | contains(command, 'dnscat2') | contains(command, 'Invoke-PowerShellIcmp')",
+        "description": "Detects alternative C2 channel establishment",
         "platform": "windows",
         "activity_type": "network",
         "technique_id": "T1095",
         "severity": 0.85
     },
     {
-        "rule_id": "rl-21001",
-        "rule_type": "process",
-        "condition": "contains(command, 'rm') and contains(command, 'staged')",
-        "description": "Detects removal of staging directories after exfiltration",
-        "platform": "linux",
-        "activity_type": "host",
-        "technique_id": "T1070",
-        "severity": 0.50
-    },
-    {
-        "rule_id": "rl-21002",
-        "rule_type": "process",
-        "condition": "contains(command, 'Remove-Item') and contains(command, 'staged')",
-        "description": "Detects removal of staging directories using PowerShell",
-        "platform": "windows",
-        "activity_type": "host",
-        "technique_id": "T1070",
-        "severity": 0.50
-    },
-    {
-        "rule_id": "rl-22001",
-        "rule_type": "process",
-        "condition": "contains(command, 'Test-NetConnection')",
-        "description": "Detects network connectivity testing",
-        "platform": "windows",
-        "activity_type": "network",
-        "technique_id": "T1016.001",
-        "severity": 0.40
-    },
-    {
-        "rule_id": "rl-23001",
-        "rule_type": "process",
-        "condition": "contains(command, 'Scan-Netrange')",
-        "description": "Detects network scanning activity",
-        "platform": "windows",
-        "activity_type": "network",
-        "technique_id": "T1046",
-        "severity": 0.70
-    },
-    {
         "rule_id": "rl-24001",
         "rule_type": "process",
-        "condition": "contains(command, 'mktemp') and contains(command, 'bash')",
+        "condition": "contains(command, 'mktemp') & contains(command, 'bash')",
         "description": "Detects creation and execution of temporary script files",
         "platform": "linux",
         "activity_type": "host",
@@ -562,7 +292,7 @@
     {
         "rule_id": "rl-24002",
         "rule_type": "process",
-        "condition": "contains(command, 'IEX') and (contains(command, 'New-Object') and contains(command, 'WebClient'))",
+        "condition": "contains(command, 'IEX') & (contains(command, 'New-Object') & contains(command, 'WebClient'))",
         "description": "Detects PowerShell command download and execution using IEX",
         "platform": "windows",
         "activity_type": "network",

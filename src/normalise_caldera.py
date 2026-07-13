@@ -2,9 +2,10 @@
 
 import json
 from config import CALDERA, OUTPUT
-from mapping import extract_process_name, init_mappings,MITRE_TECHNIQUEID_TO_TECHNIQUENAME, MITRE_TACTICNAME_TO_TACTICID, HOST_TO_IP, LOG_SOURCES, ASSET_TYPE, PRIORITY
-from security_event import SecurityEvent, Event, Network, Source, Destination, Mitre, Host, Process, Asset, GeoIP
+from mapping import COMMAND_PATTERNS, PROCESS_PATTERNS, extract_process_name, init_mappings,MITRE_TECHNIQUEID_TO_TECHNIQUENAME, MITRE_TACTICNAME_TO_TACTICID, HOST_TO_IP, LOG_SOURCES, ASSET_TYPE, PRIORITY
+from security_event import SecurityEvent, Suspicious, Event, Network, Source, Destination, Mitre, Host, Process, Asset, GeoIP
 import uuid
+from typing import List
 
 ## tactics= {'credential-access', 'execution', 'command-and-control', 'collection', 'defense-evasion', 'multiple', 'impact', 'exfiltration', 'lateral-movement', 'discovery'}
 
@@ -25,6 +26,10 @@ def parse_caldera_flat(file_path):
          technique_names= item.get("attack_metadata", {}).get("technique_name").split(':')
          technique_name= technique_names[0]
          sub_technique_name= item.get("attack_metadata", {}).get("technique_name") if len(technique_names)>1 else ""
+         suspicious_cmnds= suspicious_commands(event=item)
+         suspicious_procs= suspicious_processes(event=item)
+         activities= suspicious_cmnds[1] | suspicious_procs[1]
+        
          evt = SecurityEvent(
              host= Host(
                  user=item.get("agent_metadata", {}).get("username"),
@@ -55,6 +60,9 @@ def parse_caldera_flat(file_path):
                              executor=item.get("executor"),
                              exist_code=item.get("status", -1),
                              status="success" if item.get("status") == 0 else "failed"),
+             suspicious= Suspicious(commands= set(suspicious_cmnds[0]),
+                                    processes= set(suspicious_procs[0])
+                                    ),                
              mitre=[Mitre(tactic_id=MITRE_TACTICNAME_TO_TACTICID[item.get("attack_metadata", {}).get("tactic")] if item.get("attack_metadata", {}).get("tactic") in MITRE_TACTICNAME_TO_TACTICID else "",
                           tactic_name=item.get("attack_metadata", {}).get("tactic"),
                           technique_id=technique_id,
@@ -65,7 +73,7 @@ def parse_caldera_flat(file_path):
              event=Event(id=str(uuid.uuid4()),
                          timestamp=item.get("finished_timestamp"),
                          type=["endpoint", "process"], 
-                         activity=[MITRE_TECHNIQUEID_TO_TECHNIQUENAME[technique_id]], 
+                         activity= activities,
                          category=["host", "process"], 
                          enrichment_sources=["mitreTTP","assetDB", "geoIP"], 
                          source=LOG_SOURCES["CALDERA"])
@@ -81,6 +89,32 @@ def save_events(events, path):
     events_dict = [event.to_dict() for event in events]
     with open(path, "w") as f:
         json.dump(events_dict, f, default=str)
+
+
+def suspicious_commands(event)-> tuple[set,set]:
+    command = event.get('plaintext_command', event.get('command', ''))
+    command_lower = command.lower()
+    cmds= set()
+    cats= set()
+    for pattern, category in COMMAND_PATTERNS.items():
+        if pattern in command_lower:
+            cmds.add(pattern)
+            cats.add(category)
+
+    return (cmds, cats)
+
+def suspicious_processes(event)-> tuple[set,set]:
+    command = event.get('plaintext_command', event.get('command', ''))
+    command_lower = command.lower()
+    processes= set()
+    cats= set()
+    for pattern, category in PROCESS_PATTERNS.items():
+        if pattern in command_lower:
+            processes.add(pattern)
+            cats.add(category)
+
+    return (processes, cats)
+
 
 
 ###

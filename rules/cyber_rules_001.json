@@ -12,9 +12,7 @@
     {
         "rule_id": "rl-1030",
         "rule_type": "audit",
-        "condition": "event == 'ioctl(2)' and audit_id == -2 and path == '/dev/'",
-        "NA_audit_id": -2,
-        "path": "/dev/",
+        "condition": "(event == 'ioctl(2)') & (audit_id == -2) & (path == '/dev/')",
         "platform": "solaris",
         "activity_type": "host",
         "technique_id": "T1090",
@@ -23,8 +21,7 @@
     {
         "rule_id": "rl-1290",
         "rule_type": "traffic",
-        "condition": "flow_bytes_s > 1000000 and bwd_packet_length_max > 4000",
-        "executor": "sh",
+        "condition": "(flow_bytes_s > 1000000) & (bwd_packet_length_max > 4000)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1498",
@@ -33,8 +30,7 @@
     {
         "rule_id": "rl-1300",
         "rule_type": "audit",
-        "condition": "count(failed_logins) >= 3 and user == 'user1'",
-        "executor": "",
+        "condition": "(count(failed_logins) >= 3) & (user == 'user1')",
         "platform": "window",
         "activity_type": "host",
         "technique_id": "T1498",
@@ -44,7 +40,6 @@
         "rule_id": "rl-1301",
         "rule_type": "process",
         "condition": "count(suspicious_processes) >= 3",
-        "executor": "sh",
         "platform": "window",
         "activity_type": "host",
         "technique_id": "T1059",
@@ -53,7 +48,7 @@
     {
         "rule_id": "rl-1501",
         "rule_type": "process",
-        "condition": "contains(command, 'wget') or contains(command, 'curl') or contains(command, 'find')",
+        "condition": "contains(command, 'wget') | contains(command, 'curl') | contains(command, 'find')",
         "description": "Detects file download commands",
         "technique_id": "T1105",
         "severity": 0.70
@@ -61,8 +56,7 @@
     {
         "rule_id": "rl-1502",
         "rule_type": "audit",
-        "condition": "count(failed_logins) >= 3 and user in failed_logins",
-        "executor": "",
+        "condition": "(count(failed_logins) >= 3) & (user in failed_logins)",
         "platform": "window",
         "activity_type": "host",
         "technique_id": "T1498",
@@ -71,8 +65,7 @@
     {
         "rule_id": "UNSW-001",
         "rule_type": "traffic",
-        "condition": "proto == 'tcp' and state not in ['FIN', 'INT', 'CON', 'ECO', 'REQ']",
-        "executor": "sh",
+        "condition": "(proto == 'tcp') & (state not in ['FIN', 'INT', 'CON', 'ECO', 'REQ'])",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1043",
@@ -81,8 +74,7 @@
     {
         "rule_id": "UNSW-002",
         "rule_type": "traffic",
-        "condition": "state == 'CON' and dur > 30",
-        "executor": "sh",
+        "condition": "(state == 'CON') & (dur > 30)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1071",
@@ -92,7 +84,6 @@
         "rule_id": "UNSW-003",
         "rule_type": "traffic",
         "condition": "rate > 8000",
-        "executor": "sh",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1498",
@@ -101,8 +92,7 @@
     {
         "rule_id": "UNSW-004",
         "rule_type": "traffic",
-        "condition": "proto == 'tcp' and spkts > 50 and synack < 0.0005",
-        "executor": "sh",
+        "condition": "(proto == 'tcp') & (spkts > 50) & (synack < 0.0005)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1498",
@@ -111,8 +101,7 @@
     {
         "rule_id": "UNSW-005",
         "rule_type": "traffic",
-        "condition": "proto == 'tcp' and tcprtt < 0.001 and dpkts < 10",
-        "executor": "sh",
+        "condition": "(proto == 'tcp') & (tcprtt < 0.001) & (dpkts < 10)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1498",
@@ -121,8 +110,7 @@
     {
         "rule_id": "UNSW-006",
         "rule_type": "traffic",
-        "condition": "service == 'http' and (sbytes < 500 or sbytes > 5000)",
-        "executor": "sh",
+        "condition": "(service == 'http') & ((sbytes < 500) | (sbytes > 5000))",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1048",
@@ -131,8 +119,7 @@
     {
         "rule_id": "UNSW-007",
         "rule_type": "traffic",
-        "condition": "service == 'dns' and sbytes > 300",
-        "executor": "sh",
+        "condition": "(service == 'dns') & (sbytes > 300)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1572",
@@ -141,8 +128,7 @@
     {
         "rule_id": "UNSW-008",
         "rule_type": "traffic",
-        "condition": "service == 'dns' and spkts > 10",
-        "executor": "sh",
+        "condition": "(service == 'dns') & (spkts > 10)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1572",
@@ -152,7 +138,6 @@
         "rule_id": "UNSW-009",
         "rule_type": "traffic",
         "condition": "response_body_len > 10000",
-        "executor": "sh",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1048",
@@ -161,8 +146,7 @@
     {
         "rule_id": "UNSW-010",
         "rule_type": "traffic",
-        "condition": "sttl not in [31, 62, 254, 63, 0] and sttl > 0",
-        "executor": "sh",
+        "condition": "(sttl not in [31, 62, 254, 63, 0]) & (sttl > 0)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1595",
@@ -171,8 +155,7 @@
     {
         "rule_id": "UNSW-011",
         "rule_type": "traffic",
-        "condition": "ct_src_dport_ltm > 10 and ct_dst_sport_ltm < 3 and dpkts < 5",
-        "executor": "sh",
+        "condition": "(ct_src_dport_ltm > 10) & (ct_dst_sport_ltm < 3) & (dpkts < 5)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1046",
@@ -181,8 +164,7 @@
     {
         "rule_id": "UNSW-012",
         "rule_type": "traffic",
-        "condition": "service == 'http' and ct_flw_http_mthd > 3",
-        "executor": "sh",
+        "condition": "(service == 'http') & (ct_flw_http_mthd > 3)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1071",
@@ -191,8 +173,7 @@
     {
         "rule_id": "UNSW-013",
         "rule_type": "traffic",
-        "condition": "service == 'http' and (sload > 50000 or dload > 50000)",
-        "executor": "sh",
+        "condition": "(service == 'http') & ((sload > 50000) | (dload > 50000))",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1498",
@@ -201,8 +182,7 @@
     {
         "rule_id": "UNSW-014",
         "rule_type": "traffic",
-        "condition": "service == 'ftp' and is_ftp_login == 1 and spkts > 30",
-        "executor": "sh",
+        "condition": "(service == 'ftp') & (is_ftp_login == 1) & (spkts > 30)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1110",
@@ -211,8 +191,7 @@
     {
         "rule_id": "UNSW-015",
         "rule_type": "traffic",
-        "condition": "service == 'ftp' and ct_srv_src > 10 and dur < 1",
-        "executor": "sh",
+        "condition": "(service == 'ftp') & (ct_srv_src > 10) & (dur < 1)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1110",
@@ -221,8 +200,7 @@
     {
         "rule_id": "UNSW-016",
         "rule_type": "traffic",
-        "condition": "proto == 'udp' and spkts > 10 and dpkts == 0",
-        "executor": "sh",
+        "condition": "(proto == 'udp') & (spkts > 10) & (dpkts == 0)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1498",
@@ -231,8 +209,7 @@
     {
         "rule_id": "UNSW-017",
         "rule_type": "traffic",
-        "condition": "proto == 'udp' and rate > 50000",
-        "executor": "sh",
+        "condition": "(proto == 'udp') & (rate > 50000)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1498",
@@ -241,8 +218,7 @@
     {
         "rule_id": "UNSW-018",
         "rule_type": "traffic",
-        "condition": "proto == 'icmp' and state == 'ECO' and spkts > 10",
-        "executor": "sh",
+        "condition": "(proto == 'icmp') & (state == 'ECO') & (spkts > 10)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1498",
@@ -251,8 +227,7 @@
     {
         "rule_id": "UNSW-019",
         "rule_type": "traffic",
-        "condition": "proto == 'icmp' and sbytes > 100",
-        "executor": "sh",
+        "condition": "(proto == 'icmp') & (sbytes > 100)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1498",
@@ -261,8 +236,7 @@
     {
         "rule_id": "UNSW-020",
         "rule_type": "traffic",
-        "condition": "sbytes > 10000 and dur < 5",
-        "executor": "sh",
+        "condition": "(sbytes > 10000) & (dur < 5)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1048",
@@ -271,8 +245,7 @@
     {
         "rule_id": "UNSW-021",
         "rule_type": "traffic",
-        "condition": "proto == 'udp' and service in ['http', 'smtp', 'ftp', 'ssh']",
-        "executor": "sh",
+        "condition": "(proto == 'udp') & (service in ['http', 'smtp', 'ftp', 'ssh'])",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1572",
@@ -281,8 +254,7 @@
     {
         "rule_id": "UNSW-022",
         "rule_type": "traffic",
-        "condition": "proto == 'tcp' and service == 'dns'",
-        "executor": "sh",
+        "condition": "(proto == 'tcp') & (service == 'dns')",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1572",
@@ -291,8 +263,7 @@
     {
         "rule_id": "UNSW-023",
         "rule_type": "traffic",
-        "condition": "service == 'snmp' and (sbytes > 500 or dbytes > 500)",
-        "executor": "sh",
+        "condition": "(service == 'snmp') & ((sbytes > 500) | (dbytes > 500))",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1046",
@@ -301,8 +272,7 @@
     {
         "rule_id": "UNSW-024",
         "rule_type": "traffic",
-        "condition": "swin not in [255, 0] and swin < 100",
-        "executor": "sh",
+        "condition": "(swin not in [255, 0]) & (swin < 100)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1043",
@@ -311,8 +281,7 @@
     {
         "rule_id": "UNSW-025",
         "rule_type": "traffic",
-        "condition": "sjit > 50000 or djit > 50000",
-        "executor": "sh",
+        "condition": "(sjit > 50000) | (djit > 50000)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1043",
@@ -321,8 +290,7 @@
     {
         "rule_id": "UNSW-026",
         "rule_type": "traffic",
-        "condition": "sloss > 10 and dloss == 0 and spkts > 20",
-        "executor": "sh",
+        "condition": "(sloss > 10) & (dloss == 0) & (spkts > 20)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1498",
@@ -331,8 +299,7 @@
     {
         "rule_id": "UNSW-027",
         "rule_type": "traffic",
-        "condition": "ct_src_ltm > 20 and dur < 0.5 and spkts < 10 and dpkts < 10",
-        "executor": "sh",
+        "condition": "(ct_src_ltm > 20) & (dur < 0.5) & (spkts < 10) & (dpkts < 10)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1071",
@@ -341,8 +308,7 @@
     {
         "rule_id": "UNSW-028",
         "rule_type": "traffic",
-        "condition": "dbytes > 50000 and service in ['http', 'ftp-data'] and dur < 10",
-        "executor": "sh",
+        "condition": "(dbytes > 50000) & (service in ['http', 'ftp-data']) & (dur < 10)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1048",
@@ -351,8 +317,7 @@
     {
         "rule_id": "UNSW-029",
         "rule_type": "traffic",
-        "condition": "proto == 'tcp' and sttl - dttl > 50",
-        "executor": "sh",
+        "condition": "(proto == 'tcp') & (sttl - dttl > 50)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1595",
@@ -361,8 +326,7 @@
     {
         "rule_id": "UNSW-030",
         "rule_type": "traffic",
-        "condition": "rate == 500000 or rate == 500000.0013",
-        "executor": "sh",
+        "condition": "(rate == 500000) | (rate == 500000.0013)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1498",
@@ -371,8 +335,7 @@
     {
         "rule_id": "UNSW-031",
         "rule_type": "traffic",
-        "condition": "proto == 'arp' and spkts > 2",
-        "executor": "sh",
+        "condition": "(proto == 'arp') & (spkts > 2)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1557",
@@ -381,8 +344,7 @@
     {
         "rule_id": "UNSW-032",
         "rule_type": "traffic",
-        "condition": "service == 'smtp' and sbytes > 40000 and dur < 5",
-        "executor": "sh",
+        "condition": "(service == 'smtp') & (sbytes > 40000) & (dur < 5)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1048",
@@ -391,8 +353,7 @@
     {
         "rule_id": "UNSW-033",
         "rule_type": "traffic",
-        "condition": "ct_state_ttl == 1 and ct_srv_dst > 20",
-        "executor": "sh",
+        "condition": "(ct_state_ttl == 1) & (ct_srv_dst > 20)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1046",
@@ -401,8 +362,7 @@
     {
         "rule_id": "UNSW-034",
         "rule_type": "traffic",
-        "condition": "trans_depth > 10 and response_body_len > 5000",
-        "executor": "sh",
+        "condition": "(trans_depth > 10) & (response_body_len > 5000)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1071",
@@ -411,8 +371,7 @@
     {
         "rule_id": "UNSW-035",
         "rule_type": "traffic",
-        "condition": "smean > 1000 and dmean > 1000 and dur < 1",
-        "executor": "sh",
+        "condition": "(smean > 1000) & (dmean > 1000) & (dur < 1)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1498",
@@ -421,8 +380,7 @@
     {
         "rule_id": "CIC-001",
         "rule_type": "traffic",
-        "condition": "syn_flag_count > 50 and ack_flag_count < 10",
-        "executor": "sh",
+        "condition": "(syn_flag_count > 50) & (ack_flag_count < 10)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1498",
@@ -432,8 +390,7 @@
     {
         "rule_id": "CIC-002",
         "rule_type": "traffic",
-        "condition": "flow_bytes_per_s > 5000000 and flow_duration < 1000",
-        "executor": "sh",
+        "condition": "(flow_bytes_per_s > 5000000) & (flow_duration < 1000)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1498",
@@ -443,8 +400,7 @@
     {
         "rule_id": "CIC-003",
         "rule_type": "traffic",
-        "condition": "destination_port == 53 and total_length_of_bwd_packets > 5000 and total_fwd_packets < 5",
-        "executor": "sh",
+        "condition": "(destination_port == 53) & (total_length_of_bwd_packets > 5000) & (total_fwd_packets < 5)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1572",
@@ -454,8 +410,7 @@
     {
         "rule_id": "CIC-004",
         "rule_type": "traffic",
-        "condition": "rst_flag_count > 10 and flow_duration < 500",
-        "executor": "sh",
+        "condition": "(rst_flag_count > 10) & (flow_duration < 500)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1498",
@@ -465,8 +420,7 @@
     {
         "rule_id": "CIC-005",
         "rule_type": "traffic",
-        "condition": "flow_packets_per_s > 5000 and average_packet_size < 200",
-        "executor": "sh",
+        "condition": "(flow_packets_per_s > 5000) & (average_packet_size < 200)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1498",
@@ -476,8 +430,7 @@
     {
         "rule_id": "CIC-006",
         "rule_type": "traffic",
-        "condition": "init_win_bytes_forward == 0 and init_win_bytes_backward == 0 and total_fwd_packets > 20",
-        "executor": "sh",
+        "condition": "(init_win_bytes_forward == 0) & (init_win_bytes_backward == 0) & (total_fwd_packets > 20)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1043",
@@ -487,8 +440,7 @@
     {
         "rule_id": "CIC-007",
         "rule_type": "traffic",
-        "condition": "flow_iat_mean < 10 and flow_iat_std < 5 and total_fwd_packets > 100",
-        "executor": "sh",
+        "condition": "(flow_iat_mean < 10) & (flow_iat_std < 5) & (total_fwd_packets > 100)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1498",
@@ -498,8 +450,7 @@
     {
         "rule_id": "CIC-008",
         "rule_type": "traffic",
-        "condition": "destination_port == 443 and total_length_of_fwd_packets < 500 and total_length_of_bwd_packets > 50000",
-        "executor": "sh",
+        "condition": "(destination_port == 443) & (total_length_of_fwd_packets < 500) & (total_length_of_bwd_packets > 50000)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1048",
@@ -509,8 +460,7 @@
     {
         "rule_id": "CIC-009",
         "rule_type": "traffic",
-        "condition": "down_per_up_ratio > 100 and total_backward_packets > 100",
-        "executor": "sh",
+        "condition": "(down_per_up_ratio > 100) & (total_backward_packets > 100)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1499",
@@ -520,8 +470,7 @@
     {
         "rule_id": "CIC-010",
         "rule_type": "traffic",
-        "condition": "psh_flag_count > 50 and flow_duration < 1000",
-        "executor": "sh",
+        "condition": "(psh_flag_count > 50) & (flow_duration < 1000)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1071",
@@ -531,8 +480,7 @@
     {
         "rule_id": "CIC-011",
         "rule_type": "traffic",
-        "condition": "packet_length_variance > 10000 and total_fwd_packets < 20",
-        "executor": "sh",
+        "condition": "(packet_length_variance > 10000) & (total_fwd_packets < 20)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1043",
@@ -542,8 +490,7 @@
     {
         "rule_id": "CIC-012",
         "rule_type": "traffic",
-        "condition": "active_mean < 10 and idle_mean > 10000",
-        "executor": "sh",
+        "condition": "(active_mean < 10) & (idle_mean > 10000)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1071",
@@ -553,8 +500,7 @@
     {
         "rule_id": "CIC-013",
         "rule_type": "traffic",
-        "condition": "destination_port == 22 and total_length_of_bwd_packets > 100000 and flow_duration < 5000",
-        "executor": "sh",
+        "condition": "(destination_port == 22) & (total_length_of_bwd_packets > 100000) & (flow_duration < 5000)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1048",
@@ -564,8 +510,7 @@
     {
         "rule_id": "CIC-014",
         "rule_type": "traffic",
-        "condition": "ece_flag_count > 0 or cwe_flag_count > 0",
-        "executor": "sh",
+        "condition": "(ece_flag_count > 0) | (cwe_flag_count > 0)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1043",
@@ -575,8 +520,7 @@
     {
         "rule_id": "CIC-015",
         "rule_type": "traffic",
-        "condition": "avg_bwd_segment_size > 1400 and avg_fwd_segment_size < 100",
-        "executor": "sh",
+        "condition": "(avg_bwd_segment_size > 1400) & (avg_fwd_segment_size < 100)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1499",
@@ -586,8 +530,7 @@
     {
         "rule_id": "CIC-016",
         "rule_type": "traffic",
-        "condition": "subflow_fwd_bytes > 1000000 and subflow_fwd_packets < 100",
-        "executor": "sh",
+        "condition": "(subflow_fwd_bytes > 1000000) & (subflow_fwd_packets < 100)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1048",
@@ -597,8 +540,7 @@
     {
         "rule_id": "CIC-017",
         "rule_type": "traffic",
-        "condition": "fwd_packets_per_s > 10000 and bwd_packets_per_s < 100",
-        "executor": "sh",
+        "condition": "(fwd_packets_per_s > 10000) & (bwd_packets_per_s < 100)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1498",
@@ -608,8 +550,7 @@
     {
         "rule_id": "CIC-018",
         "rule_type": "traffic",
-        "condition": "fwd_iat_std < 1 and total_fwd_packets > 50",
-        "executor": "sh",
+        "condition": "(fwd_iat_std < 1) & (total_fwd_packets > 50)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1498",
@@ -619,8 +560,7 @@
     {
         "rule_id": "CIC-019",
         "rule_type": "traffic",
-        "condition": "min_packet_length == max_packet_length and packet_length_mean > 1000 and total_fwd_packets > 50",
-        "executor": "sh",
+        "condition": "(min_packet_length == max_packet_length) & (packet_length_mean > 1000) & (total_fwd_packets > 50)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1498",
@@ -630,8 +570,7 @@
     {
         "rule_id": "CIC-020",
         "rule_type": "traffic",
-        "condition": "urg_flag_count > 0 and total_fwd_packets > 10",
-        "executor": "sh",
+        "condition": "(urg_flag_count > 0) & (total_fwd_packets > 10)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1043",
@@ -641,8 +580,7 @@
     {
         "rule_id": "CIC-021",
         "rule_type": "traffic",
-        "condition": "total_fwd_packets > 100 and total_backward_packets < 10 and flow_duration < 100",
-        "executor": "sh",
+        "condition": "(total_fwd_packets > 100) & (total_backward_packets < 10) & (flow_duration < 100)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1498",
@@ -652,8 +590,7 @@
     {
         "rule_id": "CIC-022",
         "rule_type": "traffic",
-        "condition": "fwd_packet_length_min == fwd_packet_length_max and fwd_packet_length_mean < 100 and total_fwd_packets > 100",
-        "executor": "sh",
+        "condition": "(fwd_packet_length_min == fwd_packet_length_max) & (fwd_packet_length_mean < 100) & (total_fwd_packets > 100)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1498",
@@ -663,8 +600,7 @@
     {
         "rule_id": "CIC-023",
         "rule_type": "traffic",
-        "condition": "destination_port == 80 and total_fwd_packets < 5 and total_backward_packets > 100",
-        "executor": "sh",
+        "condition": "(destination_port == 80) & (total_fwd_packets < 5) & (total_backward_packets > 100)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1499",
@@ -674,8 +610,7 @@
     {
         "rule_id": "CIC-024",
         "rule_type": "traffic",
-        "condition": "act_data_pkt_fwd > 0 and min_seg_size_forward < 10",
-        "executor": "sh",
+        "condition": "(act_data_pkt_fwd > 0) & (min_seg_size_forward < 10)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1043",
@@ -685,8 +620,7 @@
     {
         "rule_id": "CIC-025",
         "rule_type": "traffic",
-        "condition": "flow_iat_max < 100 and flow_iat_min < 1 and total_fwd_packets > 200",
-        "executor": "sh",
+        "condition": "(flow_iat_max < 100) & (flow_iat_min < 1) & (total_fwd_packets > 200)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1498",
@@ -697,7 +631,6 @@
         "rule_id": "CIC-THR-001",
         "rule_type": "threshold",
         "condition": "flow_bytes_per_s > 10000000",
-        "executor": "sh",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1498",
@@ -707,8 +640,7 @@
     {
         "rule_id": "CIC-THR-002",
         "rule_type": "threshold",
-        "condition": "syn_flag_count > 200 and ack_flag_count < 20",
-        "executor": "sh",
+        "condition": "(syn_flag_count > 200) & (ack_flag_count < 20)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1498",
@@ -719,7 +651,6 @@
         "rule_id": "CIC-THR-003",
         "rule_type": "threshold",
         "condition": "flow_packets_per_s > 20000",
-        "executor": "sh",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1498",
@@ -729,8 +660,7 @@
     {
         "rule_id": "CIC-THR-004",
         "rule_type": "threshold",
-        "condition": "subflow_fwd_bytes > 5000000 and subflow_fwd_packets < 500",
-        "executor": "sh",
+        "condition": "(subflow_fwd_bytes > 5000000) & (subflow_fwd_packets < 500)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1048",
@@ -740,8 +670,7 @@
     {
         "rule_id": "CIC-THR-005",
         "rule_type": "threshold",
-        "condition": "down_per_up_ratio > 500 and total_backward_packets > 500",
-        "executor": "sh",
+        "condition": "(down_per_up_ratio > 500) & (total_backward_packets > 500)",
         "platform": "linux",
         "activity_type": "network",
         "technique_id": "T1499",
@@ -751,7 +680,7 @@
     {
         "rule_id": "CALDERA-001",
         "rule_type": "host",
-        "condition": "command contains 'find / -name'",
+        "condition": "contains(command, 'find / -name')",
         "executor": "sh",
         "platform": "linux",
         "activity_type": "host",
@@ -762,7 +691,7 @@
     {
         "rule_id": "CALDERA-002",
         "rule_type": "host",
-        "condition": "command contains 'Get-ChildItem' and command contains '-Recurse'",
+        "condition": "contains(command, 'Get-ChildItem') & contains(command, '-Recurse')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -773,7 +702,7 @@
     {
         "rule_id": "CALDERA-003",
         "rule_type": "host",
-        "condition": "command contains 'mkdir' and command contains 'staged'",
+        "condition": "contains(command, 'mkdir') & contains(command, 'staged')",
         "executor": "sh",
         "platform": "linux",
         "activity_type": "host",
@@ -784,7 +713,7 @@
     {
         "rule_id": "CALDERA-004",
         "rule_type": "host",
-        "condition": "command contains 'New-Item' and command contains 'staged'",
+        "condition": "contains(command, 'New-Item') & contains(command, 'staged')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -795,7 +724,7 @@
     {
         "rule_id": "CALDERA-005",
         "rule_type": "host",
-        "condition": "command contains 'which' and command contains '--version'",
+        "condition": "contains(command, 'which') & contains(command, '--version')",
         "executor": "sh",
         "platform": "linux",
         "activity_type": "host",
@@ -806,7 +735,7 @@
     {
         "rule_id": "CALDERA-006",
         "rule_type": "host",
-        "condition": "command contains 'ifconfig'",
+        "condition": "contains(command, 'ifconfig')",
         "executor": "sh",
         "platform": "linux",
         "activity_type": "host",
@@ -817,7 +746,7 @@
     {
         "rule_id": "CALDERA-007",
         "rule_type": "host",
-        "condition": "command contains 'cut -d: -f1 /etc/passwd' or command contains 'Get-WmiObject Win32_UserAccount'",
+        "condition": "contains(command, 'cut -d: -f1 /etc/passwd') | contains(command, 'Get-WmiObject Win32_UserAccount')",
         "executor": "any",
         "platform": "any",
         "activity_type": "host",
@@ -828,7 +757,7 @@
     {
         "rule_id": "CALDERA-008",
         "rule_type": "host",
-        "condition": "command contains 'ls' or command contains 'dir' or command contains 'Get-ChildItem'",
+        "condition": "contains(command, 'ls') | contains(command, 'dir') | contains(command, 'Get-ChildItem')",
         "executor": "any",
         "platform": "any",
         "activity_type": "host",
@@ -839,7 +768,7 @@
     {
         "rule_id": "CALDERA-009",
         "rule_type": "host",
-        "condition": "command contains 'whoami' or command contains '$env:username'",
+        "condition": "contains(command, 'whoami') | contains(command, '$env:username')",
         "executor": "any",
         "platform": "any",
         "activity_type": "host",
@@ -850,7 +779,7 @@
     {
         "rule_id": "CALDERA-010",
         "rule_type": "host",
-        "condition": "command contains 'netstat' or command contains 'Get-NetTCPConnection'",
+        "condition": "contains(command, 'netstat') | contains(command, 'Get-NetTCPConnection')",
         "executor": "any",
         "platform": "any",
         "activity_type": "host",
@@ -861,7 +790,7 @@
     {
         "rule_id": "CALDERA-011",
         "rule_type": "host",
-        "condition": "command contains 'ps aux' or command contains 'get-process'",
+        "condition": "contains(command, 'ps aux') | contains(command, 'get-process')",
         "executor": "any",
         "platform": "any",
         "activity_type": "host",
@@ -872,7 +801,7 @@
     {
         "rule_id": "CALDERA-012",
         "rule_type": "host",
-        "condition": "command contains 'groups' or command contains 'gpresult'",
+        "condition": "contains(command, 'groups') | contains(command, 'gpresult')",
         "executor": "any",
         "platform": "any",
         "activity_type": "host",
@@ -883,7 +812,7 @@
     {
         "rule_id": "CALDERA-013",
         "rule_type": "host",
-        "condition": "command contains 'authorized_keys'",
+        "condition": "contains(command, 'authorized_keys')",
         "executor": "sh",
         "platform": "linux",
         "activity_type": "host",
@@ -894,7 +823,7 @@
     {
         "rule_id": "CALDERA-014",
         "rule_type": "host",
-        "condition": "command contains 'env' or command contains 'hostname' or command contains 'systeminfo'",
+        "condition": "contains(command, 'env') | contains(command, 'hostname') | contains(command, 'systeminfo')",
         "executor": "any",
         "platform": "any",
         "activity_type": "host",
@@ -905,7 +834,7 @@
     {
         "rule_id": "CALDERA-015",
         "rule_type": "host",
-        "condition": "command contains 'mktemp' and command contains 'bash'",
+        "condition": "contains(command, 'mktemp') & contains(command, 'bash')",
         "executor": "sh",
         "platform": "linux",
         "activity_type": "host",
@@ -916,7 +845,7 @@
     {
         "rule_id": "CALDERA-016",
         "rule_type": "host",
-        "condition": "command contains 'id_rsa'",
+        "condition": "contains(command, 'id_rsa')",
         "executor": "sh",
         "platform": "linux",
         "activity_type": "host",
@@ -927,7 +856,7 @@
     {
         "rule_id": "CALDERA-017",
         "rule_type": "host",
-        "condition": "command contains 'sshpass' and command contains 'credstuff'",
+        "condition": "contains(command, 'sshpass') & contains(command, 'credstuff')",
         "executor": "sh",
         "platform": "linux",
         "activity_type": "host",
@@ -938,7 +867,7 @@
     {
         "rule_id": "CALDERA-018",
         "rule_type": "host",
-        "condition": "command contains 'Scan-Netrange'",
+        "condition": "contains(command, 'Scan-Netrange')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -949,7 +878,7 @@
     {
         "rule_id": "CALDERA-019",
         "rule_type": "host",
-        "condition": "command contains 'AntiVirusProduct'",
+        "condition": "contains(command, 'AntiVirusProduct')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -960,7 +889,7 @@
     {
         "rule_id": "CALDERA-020",
         "rule_type": "host",
-        "condition": "command contains 'nltest'",
+        "condition": "contains(command, 'nltest')",
         "executor": "cmd",
         "platform": "windows",
         "activity_type": "host",
@@ -971,7 +900,7 @@
     {
         "rule_id": "CALDERA-021",
         "rule_type": "host",
-        "condition": "command contains 'Get-SmbShare'",
+        "condition": "contains(command, 'Get-SmbShare')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -982,7 +911,7 @@
     {
         "rule_id": "CALDERA-022",
         "rule_type": "host",
-        "condition": "command contains 'MMC20.application'",
+        "condition": "contains(command, 'MMC20.application')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -993,7 +922,7 @@
     {
         "rule_id": "CALDERA-023",
         "rule_type": "host",
-        "condition": "command contains 'Connect-VIServer' and command contains 'SSH'",
+        "condition": "contains(command, 'Connect-VIServer') & contains(command, 'SSH')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1004,7 +933,7 @@
     {
         "rule_id": "CALDERA-024",
         "rule_type": "host",
-        "condition": "command contains 'reg add' and command contains 'Run'",
+        "condition": "contains(command, 'reg add') & contains(command, 'Run')",
         "executor": "cmd",
         "platform": "windows",
         "activity_type": "host",
@@ -1015,7 +944,7 @@
     {
         "rule_id": "CALDERA-025",
         "rule_type": "host",
-        "condition": "command contains 'bitsadmin' and command contains '/create'",
+        "condition": "contains(command, 'bitsadmin') & contains(command, '/create')",
         "executor": "cmd",
         "platform": "windows",
         "activity_type": "host",
@@ -1026,7 +955,7 @@
     {
         "rule_id": "CALDERA-026",
         "rule_type": "host",
-        "condition": "command contains 'Winlogon' and command contains 'Shell'",
+        "condition": "contains(command, 'Winlogon') & contains(command, 'Shell')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1037,7 +966,7 @@
     {
         "rule_id": "CALDERA-027",
         "rule_type": "host",
-        "condition": "command contains 'Office' and command contains 'STARTUP-PATH'",
+        "condition": "contains(command, 'Office') & contains(command, 'STARTUP-PATH')",
         "executor": "cmd",
         "platform": "windows",
         "activity_type": "host",
@@ -1048,7 +977,7 @@
     {
         "rule_id": "CALDERA-028",
         "rule_type": "host",
-        "condition": "command contains 'powercat'",
+        "condition": "contains(command, 'powercat')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1059,7 +988,7 @@
     {
         "rule_id": "CALDERA-029",
         "rule_type": "host",
-        "condition": "command contains 'dnscat2'",
+        "condition": "contains(command, 'dnscat2')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1070,7 +999,7 @@
     {
         "rule_id": "CALDERA-030",
         "rule_type": "host",
-        "condition": "command contains 'Invoke-WebRequest' or command contains 'curl' and command contains 'file/upload'",
+        "condition": "contains(command, 'Invoke-WebRequest') | (contains(command, 'curl') & contains(command, 'file/upload'))",
         "executor": "any",
         "platform": "any",
         "activity_type": "host",
@@ -1081,7 +1010,7 @@
     {
         "rule_id": "CALDERA-031",
         "rule_type": "host",
-        "condition": "command contains 'tar' or command contains 'Compress-Archive'",
+        "condition": "contains(command, 'tar') | contains(command, 'Compress-Archive')",
         "executor": "any",
         "platform": "any",
         "activity_type": "host",
@@ -1092,7 +1021,7 @@
     {
         "rule_id": "CALDERA-032",
         "rule_type": "host",
-        "condition": "command contains 'httplogging' and command contains 'dontLog'",
+        "condition": "contains(command, 'httplogging') & contains(command, 'dontLog')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1103,7 +1032,7 @@
     {
         "rule_id": "CALDERA-033",
         "rule_type": "host",
-        "condition": "command contains 'Invoke-Expression' or command contains 'obfuscated'",
+        "condition": "contains(command, 'Invoke-Expression') | contains(command, 'obfuscated')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1114,7 +1043,7 @@
     {
         "rule_id": "CALDERA-034",
         "rule_type": "host",
-        "condition": "command contains 'Clear-History'",
+        "condition": "contains(command, 'Clear-History')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1125,7 +1054,7 @@
     {
         "rule_id": "CALDERA-035",
         "rule_type": "host",
-        "condition": "command contains 'Get-CredManCreds'",
+        "condition": "contains(command, 'Get-CredManCreds')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1136,7 +1065,7 @@
     {
         "rule_id": "CALDERA-036",
         "rule_type": "host",
-        "condition": "command contains 'lsass' or command contains 'MiniDump' or command contains 'procdump'",
+        "condition": "contains(command, 'lsass') | contains(command, 'MiniDump') | contains(command, 'procdump')",
         "executor": "any",
         "platform": "windows",
         "activity_type": "host",
@@ -1147,7 +1076,7 @@
     {
         "rule_id": "CALDERA-037",
         "rule_type": "host",
-        "condition": "command contains 'reg export' and (command contains 'sam' or command contains 'system')",
+        "condition": "contains(command, 'reg export') & (contains(command, 'sam') | contains(command, 'system'))",
         "executor": "cmd",
         "platform": "windows",
         "activity_type": "host",
@@ -1158,7 +1087,7 @@
     {
         "rule_id": "CALDERA-038",
         "rule_type": "host",
-        "condition": "command contains 'reg save' and command contains 'secrets'",
+        "condition": "contains(command, 'reg save') & contains(command, 'secrets')",
         "executor": "cmd",
         "platform": "windows",
         "activity_type": "host",
@@ -1169,7 +1098,7 @@
     {
         "rule_id": "CALDERA-039",
         "rule_type": "host",
-        "condition": "command contains 'mshta'",
+        "condition": "contains(command, 'mshta')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1180,7 +1109,7 @@
     {
         "rule_id": "CALDERA-040",
         "rule_type": "host",
-        "condition": "command contains '-EncodedCommand'",
+        "condition": "contains(command, '-EncodedCommand')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1191,7 +1120,7 @@
     {
         "rule_id": "ATOMIC-001",
         "rule_type": "host",
-        "condition": "command contains 'schtasks' and command contains '/create' and command contains '/tr' and command contains 'cmd.exe'",
+        "condition": "contains(command, 'schtasks') & contains(command, '/create') & contains(command, '/tr') & contains(command, 'cmd.exe')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1202,7 +1131,7 @@
     {
         "rule_id": "ATOMIC-002",
         "rule_type": "host",
-        "condition": "command contains 'reg.exe' and command contains 'save' and (command contains 'HKLM\\sam' or command contains 'HKLM\\security' or command contains 'HKLM\\system')",
+        "condition": "contains(command, 'reg.exe') & contains(command, 'save') & (contains(command, 'HKLM\\sam') | contains(command, 'HKLM\\security') | contains(command, 'HKLM\\system'))",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1213,7 +1142,7 @@
     {
         "rule_id": "ATOMIC-003",
         "rule_type": "host",
-        "condition": "command contains 'rundll32.exe' and command contains 'comsvcs.dll' and command contains 'MiniDump' and command contains 'lsass'",
+        "condition": "contains(command, 'rundll32.exe') & contains(command, 'comsvcs.dll') & contains(command, 'MiniDump') & contains(command, 'lsass')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1224,7 +1153,7 @@
     {
         "rule_id": "ATOMIC-004",
         "rule_type": "host",
-        "condition": "command contains 'procdump.exe' and command contains 'lsass'",
+        "condition": "contains(command, 'procdump.exe') & contains(command, 'lsass')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1235,7 +1164,7 @@
     {
         "rule_id": "ATOMIC-005",
         "rule_type": "host",
-        "condition": "command contains 'powershell' and command contains '-EncodedCommand'",
+        "condition": "contains(command, 'powershell') & contains(command, '-EncodedCommand')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1246,7 +1175,7 @@
     {
         "rule_id": "ATOMIC-006",
         "rule_type": "host",
-        "condition": "command contains 'mimikatz' or command contains 'sekurlsa::' or command contains 'privilege::debug'",
+        "condition": "contains(command, 'mimikatz') | contains(command, 'sekurlsa::') | contains(command, 'privilege::debug')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1257,7 +1186,7 @@
     {
         "rule_id": "ATOMIC-007",
         "rule_type": "host",
-        "condition": "command contains 'reg.exe' and command contains 'add' and command contains 'Windows Defender' and command contains 'DisableAntiSpyware' and command contains '1'",
+        "condition": "contains(command, 'reg.exe') & contains(command, 'add') & contains(command, 'Windows Defender') & contains(command, 'DisableAntiSpyware') & contains(command, '1')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1268,7 +1197,7 @@
     {
         "rule_id": "ATOMIC-008",
         "rule_type": "host",
-        "condition": "command contains 'vssadmin' and (command contains 'delete shadows' or command contains 'shadowcopy delete')",
+        "condition": "contains(command, 'vssadmin') & (contains(command, 'delete shadows') | contains(command, 'shadowcopy delete'))",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1279,7 +1208,7 @@
     {
         "rule_id": "ATOMIC-009",
         "rule_type": "host",
-        "condition": "command contains 'mshta.exe' and (command contains 'javascript:' or command contains 'vbscript:')",
+        "condition": "contains(command, 'mshta.exe') & (contains(command, 'javascript:') | contains(command, 'vbscript:'))",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1290,7 +1219,7 @@
     {
         "rule_id": "ATOMIC-010",
         "rule_type": "host",
-        "condition": "command contains 'netsh' and command contains 'firewall' and (command contains 'disable' or command contains 'off')",
+        "condition": "contains(command, 'netsh') & contains(command, 'firewall') & (contains(command, 'disable') | contains(command, 'off'))",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1301,7 +1230,7 @@
     {
         "rule_id": "ATOMIC-011",
         "rule_type": "host",
-        "condition": "command contains 'wmic' and command contains 'process' and command contains 'call create'",
+        "condition": "contains(command, 'wmic') & contains(command, 'process') & contains(command, 'call create')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1312,7 +1241,7 @@
     {
         "rule_id": "ATOMIC-012",
         "rule_type": "host",
-        "condition": "command contains 'reg.exe' and command contains 'add' and command contains 'HKCU\\Software\\Classes\\mscfile\\shell\\open\\command'",
+        "condition": "contains(command, 'reg.exe') & contains(command, 'add') & contains(command, 'HKCU\\Software\\Classes\\mscfile\\shell\\open\\command')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1323,7 +1252,7 @@
     {
         "rule_id": "ATOMIC-013",
         "rule_type": "host",
-        "condition": "command contains 'certutil' and (command contains '-urlcache' or command contains '-verifyctl' or command contains '-encode' or command contains '-decode')",
+        "condition": "contains(command, 'certutil') & (contains(command, '-urlcache') | contains(command, '-verifyctl') | contains(command, '-encode') | contains(command, '-decode'))",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1334,7 +1263,7 @@
     {
         "rule_id": "ATOMIC-014",
         "rule_type": "host",
-        "condition": "command contains 'bitsadmin' and command contains '/transfer'",
+        "condition": "contains(command, 'bitsadmin') & contains(command, '/transfer')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1345,7 +1274,7 @@
     {
         "rule_id": "ATOMIC-015",
         "rule_type": "host",
-        "condition": "command contains 'Invoke-Mimikatz' or command contains 'Invoke-Mimikatz.ps1'",
+        "condition": "contains(command, 'Invoke-Mimikatz') | contains(command, 'Invoke-Mimikatz.ps1')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1356,7 +1285,7 @@
     {
         "rule_id": "ATOMIC-016",
         "rule_type": "host",
-        "condition": "command contains 'Set-MpPreference' and command contains 'DisableRealtimeMonitoring' and command contains '1'",
+        "condition": "contains(command, 'Set-MpPreference') & contains(command, 'DisableRealtimeMonitoring') & contains(command, '1')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1367,7 +1296,7 @@
     {
         "rule_id": "ATOMIC-017",
         "rule_type": "host",
-        "condition": "command contains 'wevtutil' and command contains 'cl' and command contains 'log'",
+        "condition": "contains(command, 'wevtutil') & contains(command, 'cl') & contains(command, 'log')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1378,7 +1307,7 @@
     {
         "rule_id": "ATOMIC-018",
         "rule_type": "host",
-        "condition": "command contains 'nltest' and command contains '/domain_trusts'",
+        "condition": "contains(command, 'nltest') & contains(command, '/domain_trusts')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1389,7 +1318,7 @@
     {
         "rule_id": "ATOMIC-019",
         "rule_type": "host",
-        "condition": "command contains 'net' and command contains 'user' and command contains '/add' and command contains '/domain'",
+        "condition": "contains(command, 'net') & contains(command, 'user') & contains(command, '/add') & contains(command, '/domain')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1400,7 +1329,7 @@
     {
         "rule_id": "ATOMIC-020",
         "rule_type": "host",
-        "condition": "command contains 'reg.exe' and command contains 'add' and command contains 'HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run'",
+        "condition": "contains(command, 'reg.exe') & contains(command, 'add') & contains(command, 'HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1411,7 +1340,7 @@
     {
         "rule_id": "ATOMIC-021",
         "rule_type": "host",
-        "condition": "command contains 'Invoke-WebRequest' and (command contains 'DownloadString' or command contains 'IEX')",
+        "condition": "contains(command, 'Invoke-WebRequest') & (contains(command, 'DownloadString') | contains(command, 'IEX'))",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1422,7 +1351,7 @@
     {
         "rule_id": "ATOMIC-022",
         "rule_type": "host",
-        "condition": "command contains 'regsvr32.exe' and command contains '/s' and (command contains '/u' or command contains '/i')",
+        "condition": "contains(command, 'regsvr32.exe') & contains(command, '/s') & (contains(command, '/u') | contains(command, '/i'))",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1433,7 +1362,7 @@
     {
         "rule_id": "ATOMIC-023",
         "rule_type": "host",
-        "condition": "command contains 'rundll32' and command contains 'url.dll,OpenURL'",
+        "condition": "contains(command, 'rundll32') & contains(command, 'url.dll,OpenURL')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1444,7 +1373,7 @@
     {
         "rule_id": "ATOMIC-024",
         "rule_type": "host",
-        "condition": "command contains 'net' and command contains 'localgroup' and command contains 'administrators' and command contains '/add'",
+        "condition": "contains(command, 'net') & contains(command, 'localgroup') & contains(command, 'administrators') & contains(command, '/add')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1455,7 +1384,7 @@
     {
         "rule_id": "ATOMIC-025",
         "rule_type": "host",
-        "condition": "command contains 'sc.exe' and (command contains 'create' or command contains 'config') and command contains 'binPath'",
+        "condition": "contains(command, 'sc.exe') & (contains(command, 'create') | contains(command, 'config')) & contains(command, 'binPath')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1466,7 +1395,7 @@
     {
         "rule_id": "ATOMIC-026",
         "rule_type": "host",
-        "condition": "command contains 'whoami' and command contains '/all'",
+        "condition": "contains(command, 'whoami') & contains(command, '/all')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1477,7 +1406,7 @@
     {
         "rule_id": "ATOMIC-027",
         "rule_type": "host",
-        "condition": "command contains 'systeminfo' or command contains 'reg query' and command contains 'ProductName'",
+        "condition": "contains(command, 'systeminfo') | (contains(command, 'reg query') & contains(command, 'ProductName'))",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1488,7 +1417,7 @@
     {
         "rule_id": "ATOMIC-028",
         "rule_type": "host",
-        "condition": "command contains 'tasklist' or command contains 'Get-Process'",
+        "condition": "contains(command, 'tasklist') | contains(command, 'Get-Process')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1499,7 +1428,7 @@
     {
         "rule_id": "ATOMIC-029",
         "rule_type": "host",
-        "condition": "command contains 'netstat' and (command contains '-ano' or command contains '-an')",
+        "condition": "contains(command, 'netstat') & (contains(command, '-ano') | contains(command, '-an'))",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1510,7 +1439,7 @@
     {
         "rule_id": "ATOMIC-030",
         "rule_type": "host",
-        "condition": "command contains 'Ipconfig' and command contains '/all'",
+        "condition": "contains(command, 'Ipconfig') & contains(command, '/all')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1521,7 +1450,7 @@
     {
         "rule_id": "ATOMIC-031",
         "rule_type": "host",
-        "condition": "command contains 'Get-WmiObject' and command contains 'Win32_Shadowcopy' and command contains 'Delete'",
+        "condition": "contains(command, 'Get-WmiObject') & contains(command, 'Win32_Shadowcopy') & contains(command, 'Delete')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1532,7 +1461,7 @@
     {
         "rule_id": "ATOMIC-032",
         "rule_type": "host",
-        "condition": "command contains 'wbadmin' and command contains 'delete' and command contains 'catalog'",
+        "condition": "contains(command, 'wbadmin') & contains(command, 'delete') & contains(command, 'catalog')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1543,7 +1472,7 @@
     {
         "rule_id": "ATOMIC-033",
         "rule_type": "host",
-        "condition": "command contains 'bcdedit' and command contains '/set' and (command contains 'recoveryenabled no' or command contains 'ignoreallfailures')",
+        "condition": "contains(command, 'bcdedit') & contains(command, '/set') & (contains(command, 'recoveryenabled no') | contains(command, 'ignoreallfailures'))",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1554,7 +1483,7 @@
     {
         "rule_id": "ATOMIC-034",
         "rule_type": "host",
-        "condition": "command contains 'Invoke-Expression' and command contains 'New-Object Net.WebClient' and command contains 'DownloadString'",
+        "condition": "contains(command, 'Invoke-Expression') & contains(command, 'New-Object Net.WebClient') & contains(command, 'DownloadString')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1565,7 +1494,7 @@
     {
         "rule_id": "ATOMIC-035",
         "rule_type": "host",
-        "condition": "command contains 'shutdown' and (command contains '/r' or command contains '/s') and command contains '/t'",
+        "condition": "contains(command, 'shutdown') & (contains(command, '/r') | contains(command, '/s')) & contains(command, '/t')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1576,7 +1505,7 @@
     {
         "rule_id": "ATOMIC-036",
         "rule_type": "host",
-        "condition": "command contains 'net' and command contains 'use' and command contains 'IPC$'",
+        "condition": "contains(command, 'net') & contains(command, 'use') & contains(command, 'IPC$')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1587,7 +1516,7 @@
     {
         "rule_id": "ATOMIC-037",
         "rule_type": "host",
-        "condition": "command contains 'reg.exe' and command contains 'query' and command contains 'HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Windows'",
+        "condition": "contains(command, 'reg.exe') & contains(command, 'query') & contains(command, 'HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Windows')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1598,7 +1527,7 @@
     {
         "rule_id": "ATOMIC-038",
         "rule_type": "host",
-        "condition": "command contains 'net' and command contains 'view' and command contains '/domain'",
+        "condition": "contains(command, 'net') & contains(command, 'view') & contains(command, '/domain')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1609,7 +1538,7 @@
     {
         "rule_id": "ATOMIC-039",
         "rule_type": "host",
-        "condition": "command contains 'net' and command contains 'group' and command contains '/domain'",
+        "condition": "contains(command, 'net') & contains(command, 'group') & contains(command, '/domain')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1620,7 +1549,7 @@
     {
         "rule_id": "ATOMIC-040",
         "rule_type": "host",
-        "condition": "command contains 'net' and command contains 'user' and command contains '/domain'",
+        "condition": "contains(command, 'net') & contains(command, 'user') & contains(command, '/domain')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1631,7 +1560,7 @@
     {
         "rule_id": "ATOMIC-041",
         "rule_type": "host",
-        "condition": "command contains 'cmdkey' and command contains '/list'",
+        "condition": "contains(command, 'cmdkey') & contains(command, '/list')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1642,7 +1571,7 @@
     {
         "rule_id": "ATOMIC-042",
         "rule_type": "host",
-        "condition": "command contains 'vaultcmd' and command contains '/listcreds'",
+        "condition": "contains(command, 'vaultcmd') & contains(command, '/listcreds')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1653,7 +1582,7 @@
     {
         "rule_id": "ATOMIC-043",
         "rule_type": "host",
-        "condition": "command contains 'mavinject' and command contains '/INJECTRUNNING'",
+        "condition": "contains(command, 'mavinject') & contains(command, '/INJECTRUNNING')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1664,7 +1593,7 @@
     {
         "rule_id": "ATOMIC-044",
         "rule_type": "host",
-        "condition": "command contains 'reg.exe' and command contains 'add' and command contains 'HKLM\\SYSTEM\\CurrentControlSet\\Control\\Lsa' and command contains 'Authentication Packages'",
+        "condition": "contains(command, 'reg.exe') & contains(command, 'add') & contains(command, 'HKLM\\SYSTEM\\CurrentControlSet\\Control\\Lsa') & contains(command, 'Authentication Packages')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
@@ -1675,7 +1604,7 @@
     {
         "rule_id": "ATOMIC-045",
         "rule_type": "host",
-        "condition": "command contains 'odbcconf' and (command contains '/S' or command contains '/A') and command contains 'REGSVR'",
+        "condition": "contains(command, 'odbcconf') & (contains(command, '/S') | contains(command, '/A')) & contains(command, 'REGSVR')",
         "executor": "psh",
         "platform": "windows",
         "activity_type": "host",
